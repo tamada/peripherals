@@ -1,5 +1,5 @@
 GO=go
-NAME := uniq2
+NAME := puniq
 VERSION := 1.1.1
 DIST := $(NAME)-$(VERSION)
 
