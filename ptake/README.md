@@ -17,4 +17,3 @@ FILE
     if more than a single file is specified, each file is separated by a header 
     consisting of the string "==> XXX <==" where "XXX" is the name of the file.
 ```
-

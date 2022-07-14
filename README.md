@@ -5,12 +5,15 @@ utility commands for the shell.
 ## implemented commands
 
 * [`puniq`](puniq)
-* [`putake`](putake)
-* [`puskip`](puskip)
+* [`ptake`](ptake)
+* [`pskip`](pskip)
 
-# How to install
+## How to install
 
-
+```sh
+brew tap tamada/brew
+brew install peripherals
+```
 
 ## License
 
