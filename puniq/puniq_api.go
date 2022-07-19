@@ -1,4 +1,4 @@
-package uniq2
+package puniq
 
 import (
 	"strings"

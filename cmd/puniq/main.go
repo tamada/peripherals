@@ -5,7 +5,7 @@ import (
 	"os"
 
 	flag "github.com/spf13/pflag"
-	"github.com/tamada/uniq2"
+	"github.com/tamada/peripherals/puniq"
 )
 
 /*
@@ -35,8 +35,8 @@ func printError(err error, statusCode int) int {
 	return statusCode
 }
 
-func perform(flags *flag.FlagSet, opts *uniq2.Parameters) int {
-	var args, err = uniq2.NewArguments(flags.Args()[1:])
+func perform(flags *flag.FlagSet, opts *puniq.Parameters) int {
+	var args, err = puniq.NewArguments(flags.Args()[1:])
 	if err != nil {
 		return printError(err, 1)
 	}
@@ -60,12 +60,12 @@ func goMain(args []string) int {
 }
 
 type options struct {
-	params   *uniq2.Parameters
+	params   *puniq.Parameters
 	helpFlag bool
 }
 
 func buildFlagSet() (*flag.FlagSet, *options) {
-	var opts = options{params: &uniq2.Parameters{}}
+	var opts = options{params: &puniq.Parameters{}}
 	var flags = flag.NewFlagSet("uniq2", flag.ContinueOnError)
 	flags.Usage = func() { fmt.Println(helpMessage("uniq2")) }
 	flags.BoolVarP(&opts.params.Adjacent, "adjacent", "a", false, "delete only the adjacent duplicate lines")

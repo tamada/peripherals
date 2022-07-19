@@ -1,4 +1,4 @@
-package uniq2
+package puniq
 
 /*
 AdjacentUniqer is an implementation of uniqer for adjacent lines.

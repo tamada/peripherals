@@ -1,4 +1,4 @@
-package uniq2
+package puniq
 
 /*
 WholeLineUniqer is an implementation of uniqer for whole lines.
