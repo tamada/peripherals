@@ -35,17 +35,22 @@ OUTPUT      represents the destination.
 ```sh
 ptake [OPTIONS] [FILEs...]
 OPTIONS
-    -b, --bytes <BYTES>        take BYTES bytes (same as head command).
+    -b, --bytes <NUMBER>       take NUMBER bytes (same as head command).
     -n, --lines <NUMBER>       take NUMBER lines (same as head command).
-    -u, --until <KEYWORD>      take lines while KEYWORD is appeared.
-    -w, --while <PREDICATE>    take lines until PREDICATE is satisfied. 
-                               we can use the variable which CLINE shows the current line
+    -u, --until <KEYWORD>      take lines until KEYWORD is appeared.
+    -w, --while <PREDICATE>    take lines while PREDICATE is satisfied. 
+                               we can use the variable CLINE which is the current line
                                in the PREDICATE.
+                               this option is unavailable on Windows platform.
     -q, --no-header            suppress printing of headers when multiple files are being examined.
 
-FILE    if given file is "-" or absent, it reads from STDIN.
-        if more than a single file is specified, each file is separated by a header 
-        consisting of the string "==> XXX <==" where "XXX" is the name of the file.
+    -h, --help                 print this message and exit.
+    -v, --version              print version and exit.
+FILE
+    gives file name for the input. if this argument is single dash ("-") or absent,
+    it reads strings from STDIN.
+    if more than a single file is specified, each file is separated by a header 
+    consisting of the string "==> XXX <==" where "XXX" is the name of the file.
 ```
 
 ### `pskip`

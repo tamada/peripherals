@@ -7,6 +7,15 @@ import (
 	"github.com/tamada/peripherals/eval/shell"
 )
 
+type TakerType int
+
+const (
+	LINE TakerType = iota + 1
+	BYTES
+	WHILE
+	UNTIL
+)
+
 type Taker interface {
 	TakeLine(data string) bool
 	TakeByte(data byte) bool
@@ -32,7 +41,6 @@ type takerBytes struct {
 }
 
 type takerWhile struct {
-	predicate string
 	evaluator eval.Evaluator
 	finish    bool
 }
@@ -45,8 +53,8 @@ type takerUntil struct {
 func NewTaker(t TakerType, data InputData) (Taker, error) {
 	switch t {
 	case WHILE:
-		evaluator, err := shell.New()
-		return &takerWhile{predicate: data.String(), evaluator: evaluator, finish: false}, err
+		evaluator, err := shell.New(data.String())
+		return &takerWhile{evaluator: evaluator, finish: false}, err
 	case UNTIL:
 		return &takerUntil{keyword: data.String(), finish: false}, nil
 	case LINE:
@@ -67,7 +75,7 @@ func (taker *takerBytes) IsLine() bool {
 	return false
 }
 
-func (taker *takerBytes) TakeByte(data byte) bool {
+func (taker *takerBytes) TakeByte(_ byte) bool {
 	if !taker.finish {
 		taker.current++
 		taker.finish = taker.bytes < taker.current
@@ -75,8 +83,32 @@ func (taker *takerBytes) TakeByte(data byte) bool {
 	return !taker.finish
 }
 
-func (taker *takerBytes) TakeLine(data string) bool {
+func (taker *takerBytes) TakeLine(_ string) bool {
 	return true
+}
+
+func (taker *takerLine) Reset() {
+	taker.current = 0
+	taker.finish = false
+}
+
+func (taker *takerLine) IsLine() bool {
+	return true
+}
+
+func (taker *takerLine) TakeByte(_ byte) bool {
+	return true
+}
+
+func (taker *takerLine) TakeLine(_ string) bool {
+	if taker.finish {
+		return !taker.finish
+	}
+	taker.current++
+	if taker.lines < taker.current {
+		taker.finish = true
+	}
+	return !taker.finish
 }
 
 func (taker *takerUntil) Reset() {
@@ -87,43 +119,17 @@ func (taker *takerUntil) IsLine() bool {
 	return true
 }
 
-func (taker *takerUntil) TakeByte(data byte) bool {
+func (taker *takerUntil) TakeByte(_ byte) bool {
 	return true
 }
 
 func (taker *takerUntil) TakeLine(data string) bool {
-	if taker.finish {
-		return !taker.finish
-	}
-	if data == taker.keyword {
-		taker.finish = true
-		return true // print the matched line
+	if !taker.finish {
+		if data == taker.keyword {
+			taker.finish = true
+		}
 	}
 	return !taker.finish
-}
-
-func (taker *takerLine) Reset() {
-	taker.current = 0
-	taker.finish = false
-}
-
-func (tl *takerLine) IsLine() bool {
-	return true
-}
-
-func (tl *takerLine) TakeByte(data byte) bool {
-	return true
-}
-
-func (tl *takerLine) TakeLine(data string) bool {
-	if tl.finish {
-		return !tl.finish
-	}
-	tl.current++
-	if tl.lines < tl.current {
-		tl.finish = true
-	}
-	return !tl.finish
 }
 
 func (taker *takerWhile) Reset() {
@@ -134,17 +140,15 @@ func (taker *takerWhile) IsLine() bool {
 	return true
 }
 
-func (taker *takerWhile) TakeByte(data byte) bool {
+func (taker *takerWhile) TakeByte(_ byte) bool {
 	return true
 }
 
 func (taker *takerWhile) TakeLine(data string) bool {
-	if taker.finish {
-		return !taker.finish
-	}
-	if taker.evaluator.Eval(taker.predicate, data) {
-		taker.finish = true
-		return true
+	if !taker.finish {
+		if !taker.evaluator.Eval(data) {
+			taker.finish = true
+		}
 	}
 	return !taker.finish
 }

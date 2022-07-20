@@ -2,57 +2,46 @@ package shell
 
 import (
 	"fmt"
+	"github.com/tamada/peripherals/eval"
 	"os"
 	"os/exec"
+	"path"
 	"strings"
-
-	"github.com/tamada/peripherals/eval"
 )
 
-type ShellEvaluator struct {
+type Evaluator struct {
 	shellName string
 	args      []string
 }
 
-func NewWithShell(shellName string) (eval.Evaluator, error) {
-	if shellName == "" {
-		return nil, fmt.Errorf("empty shellName does not allow")
+func New(predicate string) (eval.Evaluator, error) {
+	if predicate == "" {
+		return nil, fmt.Errorf("empty predicate does not allow")
 	}
-	args := []string{}
-	if isIn(shellName, []string{"bash", "zsh", "sh"}) {
-		args = []string{"-c"}
-	}
-	return &ShellEvaluator{shellName: shellName, args: args}, nil
-}
-
-func New() (eval.Evaluator, error) {
-	shell := os.Getenv("SHELL")
-	if shell == "" {
-		return nil, fmt.Errorf("SHELL: environment value was not found")
-	}
-	return NewWithShell(shell)
-}
-
-func isIn(value string, set []string) bool {
-	for _, v := range set {
-		if strings.Contains(v, value) {
-			return true
+	args := strings.Split(predicate, " ")
+	if path.Ext(args[0]) == ".sh" {
+		newArgs := []string{}
+		if len(args) >= 1 {
+			newArgs = args[1:]
 		}
+		return &Evaluator{shellName: args[0], args: newArgs}, nil
 	}
-	return false
+	return &Evaluator{shellName: "test", args: []string{predicate}}, nil
 }
 
-func (se *ShellEvaluator) Eval(predicate, line string) bool {
-	cmd := setupCmd(se, predicate, line)
+func (se *Evaluator) Eval(line string) bool {
+	cmd := setupCmd(se, line)
 	err := cmd.Run()
-	return err == nil
+	if err != nil {
+		return false
+	}
+	return cmd.ProcessState.ExitCode() == 0
 }
 
-func setupCmd(se *ShellEvaluator, predicate, line string) *exec.Cmd {
-	newArgs := []string{}
-	newArgs = append(newArgs, se.args...)
-	newArgs = append(newArgs, strings.Split(predicate, "")...)
-	cmd := exec.Command(se.shellName, newArgs...)
+func setupCmd(se *Evaluator, line string) *exec.Cmd {
+	cmd := exec.Command(se.shellName, se.args...)
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
 	cmd.Env = append(os.Environ(), fmt.Sprintf("CLINE=%s", line))
 	return cmd
 }
