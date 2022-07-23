@@ -5,7 +5,6 @@ import (
 	"github.com/tamada/peripherals/eval"
 	"os"
 	"os/exec"
-	"path"
 	"strings"
 )
 
@@ -19,14 +18,11 @@ func New(predicate string) (eval.Evaluator, error) {
 		return nil, fmt.Errorf("empty predicate does not allow")
 	}
 	args := strings.Split(predicate, " ")
-	if path.Ext(args[0]) == ".sh" {
-		newArgs := []string{}
-		if len(args) >= 1 {
-			newArgs = args[1:]
-		}
-		return &Evaluator{shellName: args[0], args: newArgs}, nil
+	newArgs := []string{}
+	if len(args) >= 1 {
+		newArgs = args[1:]
 	}
-	return &Evaluator{shellName: "test", args: []string{predicate}}, nil
+	return &Evaluator{shellName: args[0], args: newArgs}, nil
 }
 
 func (se *Evaluator) Eval(line string) bool {

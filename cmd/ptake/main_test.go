@@ -1,6 +1,17 @@
 package main
 
-import "testing"
+import (
+	"testing"
+)
+
+func Example_while() {
+	goMain([]string{"ptake", "--while", "$CLINE != a3", "../../testdata/test1.txt"})
+	// Output:
+	// a1
+	// a1
+	// a2
+	// a2
+}
 
 func Example_until() {
 	goMain([]string{"ptake", "--until", "a4", "../../testdata/test1.txt"})
@@ -21,9 +32,8 @@ func Example_until() {
 //	//     -n, --lines <NUMBER>       take NUMBER lines (same as head command).
 //	//     -u, --until <KEYWORD>      take lines until KEYWORD is appeared.
 //	//     -w, --while <PREDICATE>    take lines while PREDICATE is satisfied.
-//	//                                we can use the variable CLINE in the PREDICATE,
-//	//                                which shows the current line from input.
-//	//                                this option is unavailable on Windows platform.
+//	//                                we can use the variable PTAKE_LINE and PTAKE_LINECOUNT
+//	//                                which are the current line and its number in the PREDICATE.
 //	//     -q, --no-header            suppress printing of headers when multiple
 //	//                                files are being examined.
 //	//

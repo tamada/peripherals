@@ -92,9 +92,8 @@ OPTIONS
     -n, --lines <NUMBER>       take NUMBER lines (same as head command).
     -u, --until <KEYWORD>      take lines until KEYWORD is appeared.
     -w, --while <PREDICATE>    take lines while PREDICATE is satisfied. 
-                               we can use the variable CLINE in the PREDICATE,
-                               which shows the current line from input.
-                               this option is unavailable on Windows platform.
+                               we can use the variable PTAKE_LINE and PTAKE_LINECOUNT
+                               which are the current line and its number in the PREDICATE.
     -q, --no-header            suppress printing of headers when multiple
                                files are being examined.
 

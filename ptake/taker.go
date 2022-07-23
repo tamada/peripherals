@@ -2,9 +2,11 @@ package ptake
 
 import (
 	"fmt"
-
 	"github.com/tamada/peripherals/eval"
 	"github.com/tamada/peripherals/eval/shell"
+	"github.com/tamada/peripherals/ptest"
+	"strconv"
+	"strings"
 )
 
 type TakerType int
@@ -41,6 +43,12 @@ type takerBytes struct {
 }
 
 type takerWhile struct {
+	expression []string
+	lineCount  int
+	finish     bool
+}
+
+type takerExecWhile struct {
 	evaluator eval.Evaluator
 	finish    bool
 }
@@ -53,8 +61,13 @@ type takerUntil struct {
 func NewTaker(t TakerType, data InputData) (Taker, error) {
 	switch t {
 	case WHILE:
-		evaluator, err := shell.New(data.String())
-		return &takerWhile{evaluator: evaluator, finish: false}, err
+		str := data.String()
+		if strings.HasSuffix(str, ".sh") {
+			evaluator, err := shell.New(str)
+			return &takerExecWhile{evaluator: evaluator, finish: false}, err
+		} else {
+			return &takerWhile{expression: strings.Split(str, " "), lineCount: 0, finish: false}, nil
+		}
 	case UNTIL:
 		return &takerUntil{keyword: data.String(), finish: false}, nil
 	case LINE:
@@ -133,6 +146,7 @@ func (taker *takerUntil) TakeLine(data string) bool {
 }
 
 func (taker *takerWhile) Reset() {
+	taker.lineCount = 0
 	taker.finish = false
 }
 
@@ -145,6 +159,37 @@ func (taker *takerWhile) TakeByte(_ byte) bool {
 }
 
 func (taker *takerWhile) TakeLine(data string) bool {
+	if !taker.finish {
+		taker.lineCount++
+		e := ptest.New(taker.expression)
+		e.SetEnv("PTAKE_LINE", data)
+		e.SetEnv("PTAKE_LINECOUNT", strconv.Itoa(taker.lineCount))
+		flag, err := e.Eval()
+		// fmt.Printf("%s (PTAKER_LINE: %s): %v\n", e.Original, data, flag)
+		if err != nil {
+			fmt.Println(err.Error())
+			return false
+		}
+		if !flag {
+			taker.finish = true
+		}
+	}
+	return !taker.finish
+}
+
+func (taker *takerExecWhile) Reset() {
+	taker.finish = false
+}
+
+func (taker *takerExecWhile) IsLine() bool {
+	return true
+}
+
+func (taker *takerExecWhile) TakeByte(_ byte) bool {
+	return true
+}
+
+func (taker *takerExecWhile) TakeLine(data string) bool {
 	if !taker.finish {
 		if !taker.evaluator.Eval(data) {
 			taker.finish = true
