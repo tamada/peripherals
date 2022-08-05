@@ -79,3 +79,4 @@ func PrintError(err error, statusOnError int) int {
 	fmt.Println(err.Error())
 	return statusOnError
 }
+

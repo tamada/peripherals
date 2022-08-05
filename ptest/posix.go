@@ -1,5 +1,3 @@
-//go:build !windows
-
 package ptest
 
 import (
@@ -9,11 +7,19 @@ import (
 )
 
 func checkUid(uid int, stat fs.FileInfo) bool {
-	info := stat.Sys().(*syscall.Stat_t)
+	source := stat.Sys()
+	if source == nil {
+		return false
+	}
+	info := source.(*syscall.Stat_t)
 	return int(info.Uid) == os.Getuid()
 }
 
 func checkGid(gid int, stat fs.FileInfo) bool {
-	info := stat.Sys().(*syscall.Stat_t)
+	source := stat.Sys()
+	if source == nil {
+		return false
+	}
+	info := source.(*syscall.Stat_t)
 	return int(info.Gid) == os.Getgid()
 }

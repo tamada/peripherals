@@ -9,10 +9,10 @@ setup:
 	mkdir -p bin
 
 test: setup
-	$(GO) test -covermode=count -coverprofile=coverage.out $$(go list ./...)
+	$(GO) test --tags $$(go env GOOS) -covermode=count -coverprofile=coverage.out $$(go list ./...)
 
 define _buildSubcommand
-	$(GO) build -o bin/$(1) cmd/$(1)/*.go
+	$(GO) build --tags $$(go env GOOS) -o bin/$(1) cmd/$(1)/*.go
 endef
 
 build: setup
@@ -34,5 +34,4 @@ format: setup
 	goimports -w $$(go list ./... | sed 's/github.com\/tamada\/peripherals//g' | sed 's/^\///g')
 
 clean:
-	$(GO) clean
-	rm -rf rrh rrh-helloworld rrh-new dist
+	rm -rf bin
