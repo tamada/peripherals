@@ -1,10 +1,5 @@
 package main
 
-import (
-	"github.com/tamada/peripherals/cmd/common"
-	"testing"
-)
-
 func Example_while() {
 	goMain([]string{"ptake", "--while", "$PLINE != a3", "../../testdata/test1.txt"})
 	// Output:
@@ -44,15 +39,4 @@ func Example_printHelp() {
 	//     it reads strings from STDIN.
 	//     if more than a single file is specified, each file is separated by a header
 	//     consisting of the string '==> XXX <==' where 'XXX' is the name of the file.
-}
-
-func TestValidate(t *testing.T) {
-	opts1 := common.Options{Lines: 0, Bytes: 0, Keyword: "", Predicate: "", NoHeader: false}
-	if err := opts1.Validate(); err == nil {
-		t.Errorf("specifying no option causes an error")
-	}
-	opts2 := common.Options{Lines: 10, Bytes: 10, Keyword: "", Predicate: "", NoHeader: false}
-	if err := opts2.Validate(); err == nil {
-		t.Errorf("specifying no option causes an error")
-	}
 }

@@ -2,6 +2,7 @@ package ptest
 
 import (
 	"fmt"
+	"github.com/tamada/peripherals"
 	"os"
 	"strconv"
 	"strings"
@@ -155,9 +156,15 @@ func operation(opts, target string) (bool, error) {
 	case "-S": // socket
 		return err == nil && stat.Mode() == os.ModeSocket, nil
 	case "-O": // owner matches the effective user of this process
+		if peripherals.IsWindows() {
+			return false, nil
+		}
 		info := stat.Sys().(*syscall.Stat_t)
 		return err == nil && int(info.Uid) == os.Getuid(), nil
 	case "-G": // owner matches the effective user of this process
+		if peripherals.IsWindows() {
+			return false, nil
+		}
 		info := stat.Sys().(*syscall.Stat_t)
 		return err == nil && int(info.Gid) == os.Getgid(), nil
 	}

@@ -16,7 +16,7 @@ func performLine(taker Taker, reader io.Reader, out *bufio.Writer) error {
 		if result {
 			fmt.Fprintln(out, line)
 		} else {
-			break
+			//break
 		}
 	}
 	return nil
