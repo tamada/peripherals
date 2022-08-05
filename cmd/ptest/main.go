@@ -2,12 +2,16 @@ package main
 
 import (
 	"fmt"
+	"github.com/tamada/peripherals"
 	"github.com/tamada/peripherals/ptest"
 	"os"
 )
 
+const VERSION = "1.0.0"
+
 func printHelp(prog string) string {
-	return fmt.Sprintf(`%s <expression>
+	return fmt.Sprintf(`%s version %s (%s)
+%s <expression>
 file operations
     -b|-c|-d|-e|-f|-g|-h|-k|-p|-r|-s|-u|-w|-x|-L|-O|-G|-S file
     -t file_descriptor
@@ -23,7 +27,7 @@ combination operations
     expression -o expression
     ( expression )
 other operations
-    --help               print this message.`, prog)
+    --help               print this message.`, prog, VERSION, peripherals.Version(), prog)
 }
 
 func perform(tokens []string) (bool, error) {

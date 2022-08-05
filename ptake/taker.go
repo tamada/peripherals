@@ -58,7 +58,7 @@ type takerUntil struct {
 	finish  bool
 }
 
-func NewTaker(t TakerType, data InputData) (Taker, error) {
+func New(t TakerType, data InputData) (Taker, error) {
 	switch t {
 	case WHILE:
 		str := data.String()
@@ -162,10 +162,10 @@ func (taker *takerWhile) TakeLine(data string) bool {
 	if !taker.finish {
 		taker.lineCount++
 		e := ptest.New(taker.expression)
-		e.SetEnv("PTAKE_LINE", data)
-		e.SetEnv("PTAKE_LINECOUNT", strconv.Itoa(taker.lineCount))
+		e.SetEnv("PLINE", data)
+		e.SetEnv("PLINECOUNT", strconv.Itoa(taker.lineCount))
 		flag, err := e.Eval()
-		// fmt.Printf("%s (PTAKER_LINE: %s): %v\n", e.Original, data, flag)
+		//fmt.Printf("%s (PTAKER_LINE: %s): %v\n", e.Original, data, flag)
 		if err != nil {
 			fmt.Println(err.Error())
 			return false

@@ -24,8 +24,8 @@ OPTIONS
     -a, --adjacent        delete only adjacent duplicated lines.
     -d, --delete-lines    only prints deleted lines.
     -i, --ignore-case     case sensitive.
-    -h, --help            print this message.
 
+    -h, --help            print this message.
 INPUT       gives file name of input.  If argument is single dash ('-')
             or absent, the program read strings from stdin.
 OUTPUT      represents the destination.
@@ -39,22 +39,39 @@ OPTIONS
     -b, --bytes <NUMBER>       take NUMBER bytes (same as head command).
     -n, --lines <NUMBER>       take NUMBER lines (same as head command).
     -u, --until <KEYWORD>      take lines until KEYWORD is appeared.
-    -w, --while <PREDICATE>    take lines while PREDICATE is satisfied. 
-                               we can use the variable PTAKE_LINE and PTAKE_LINECOUNT
-                               which are the current line and its number in the PREDICATE.
+    -w, --while <PREDICATE>    take lines while PREDICATE is satisfied.
+                               we can use the variable PLINE and PLINECOUNT
+                               which are the current line and its line number in the PREDICATE.
     -q, --no-header            suppress printing of headers when multiple files are being examined.
 
     -h, --help                 print this message and exit.
-    -v, --version              print version and exit.
 FILE
     gives file name for the input. if this argument is single dash ("-") or absent,
     it reads strings from STDIN.
-    if more than a single file is specified, each file is separated by a header 
+    if more than a single file is specified, each file is separated by a header
     consisting of the string "==> XXX <==" where "XXX" is the name of the file.
 ```
 
 ### `pskip`
 
+```shell
+skip [OPTIONS] [FILEs...]
+OPTIONS
+    -b, --bytes <NUMBER>       skip NUMBER bytes (same as head command).
+    -n, --lines <NUMBER>       skip NUMBER lines (same as head command).
+    -u, --until <KEYWORD>      skip lines until KEYWORD is appeared.
+    -w, --while <PREDICATE>    skip lines while PREDICATE is satisfied.
+                               we can use the variable PLINE and PLINECOUNT
+                               which are the current line and its line number in the PREDICATE.
+    -q, --no-header            suppress printing of headers when multiple files are being examined.
+
+    -h, --help                 print this message and exit.
+FILE
+    gives file name for the input. if this argument is single dash ("-") or absent,
+    it reads strings from STDIN.
+    if more than a single file is specified, each file is separated by a header
+    consisting of the string "==> XXX <==" where "XXX" is the name of the file.
+```
 
 ### `ptest`
 
@@ -107,7 +124,6 @@ combined operation
     expression -a expression
     expression -o expression
     ( expression )
-    
 ```
 
 

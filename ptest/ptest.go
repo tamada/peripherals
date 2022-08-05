@@ -175,7 +175,7 @@ var fileOpts = []string{
 }
 
 func compareStrings(item1, item2 string, opts string) (bool, error) {
-	// fmt.Printf("%s %s %s (compareStrings)\n", item1, opts, item2)
+	// fmt.Printf("%s %s %s (compareStrings)\n", item1, common, item2)
 	switch opts {
 	case "==", "=":
 		return item1 == item2, nil
@@ -194,7 +194,7 @@ func compareStrings(item1, item2 string, opts string) (bool, error) {
 }
 
 func compareNumbers(item1, item2 string, opts string) (bool, error) {
-	// fmt.Printf("%s %s %s (compareNumbers)\n", item1, opts, item2)
+	// fmt.Printf("%s %s %s (compareNumbers)\n", item1, common, item2)
 	n1, err1 := strconv.Atoi(item1)
 	if err1 != nil {
 		return false, err1
@@ -221,7 +221,7 @@ func compareNumbers(item1, item2 string, opts string) (bool, error) {
 }
 
 func compareFiles(file1, file2 string, opts string) (bool, error) {
-	// fmt.Printf("%s %s %s (compareFiles)\n", file1, opts, file2)
+	// fmt.Printf("%s %s %s (compareFiles)\n", file1, common, file2)
 	stat1, err1 := os.Stat(file1)
 	stat2, err2 := os.Stat(file2)
 	// err1 == nil: file1 is exists
@@ -246,7 +246,7 @@ func isIn(str string, set []string) bool {
 }
 
 func (e *Expression) compare(item1, item2 string, opts string) (bool, error) {
-	// fmt.Printf("compare(%s, %s, %s)\n", item1, item2, opts)
+	// fmt.Printf("compare(%s, %s, %s)\n", item1, item2, common)
 	str1 := replaceEnv(e, item1)
 	str2 := replaceEnv(e, item2)
 	if isIn(opts, stringOpts) {
