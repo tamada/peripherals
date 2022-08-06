@@ -34,7 +34,7 @@ jobs:
 
       - name: Upgrade Version
         run: |
-          for f in cmd/{pskip,ptake,ptest,puniq}/main.go ; do sed 's/const VERSION = \"[0-9.]*\"/const VERSION = \"${{ steps.vars.outputs.tag }}\"/g' $f > a ; mv a $f ; done
+          sed 's/const VERSION = \"[0-9.]*\"/const VERSION = \"${{ steps.vars.outputs.tag }}\"/g' peripherals.go > a ; mv a peripherals.go
           sed 's/VERSION := [0-9.]*/VERSION := ${{ steps.vars.outputs.tag }}/g' Makefile > a ; mv a Makefile
           sed 's/${VERSION}/${{ steps.vars.outputs.tag }}/g' templates/peripherals_test.go.template > peripherals_test.go
           sed 's/${VERSION}/${{ steps.vars.outputs.tag }}/g' templates/README.md > README.md

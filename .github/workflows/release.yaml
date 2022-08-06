@@ -81,6 +81,8 @@ jobs:
           fetch-depth: 0 # Fetch all history for .GitInfo and .Lastmod
 
       - name: Create distribution files
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           make dist
           gh release upload ${{ needs.site.output.tag }} dist/peripherals-${{ needs.site.output.tag }}-darwin-arm64.tar.gz \
