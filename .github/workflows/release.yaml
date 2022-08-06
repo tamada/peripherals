@@ -85,7 +85,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           make dist
-          gh release upload ${{ needs.site.outputs.tag }} dist/peripherals-${{ needs.site.outputs.tag }}-darwin-arm64.tar.gz \
+          gh release upload v${{ needs.site.outputs.tag }} dist/peripherals-${{ needs.site.outputs.tag }}-darwin-arm64.tar.gz \
              dist/peripherals-${{ needs.site.outputs.tag }}-darwin-amd64.tar.gz \
              dist/peripherals-${{ needs.site.outputs.tag }}-linux-arm64.tar.gz \
              dist/peripherals-${{ needs.site.outputs.tag }}-linux-amd64.tar.gz \
