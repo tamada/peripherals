@@ -1,8 +1,6 @@
-package uniq2
+package puniq
 
-/*
-AdjacentUniqer is an implementation of uniqer for adjacent lines.
-*/
+// AdjacentUniqer is an implementation of uniqer for adjacent lines.
 type AdjacentUniqer struct {
 	prev      string
 	firstLine bool

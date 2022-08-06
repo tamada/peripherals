@@ -1,4 +1,4 @@
-package uniq2
+package puniq
 
 import (
 	"bytes"
@@ -17,10 +17,10 @@ func TestNewArguments(t *testing.T) {
 		{[]string{}, false, true, true},
 		{[]string{"-"}, false, true, true},
 		{[]string{"-", "-"}, false, true, true},
-		{[]string{"uniq2.go"}, false, false, true},
-		{[]string{"uniq2.go", "-"}, false, false, true},
-		{[]string{"uniq2.go", "hoge"}, false, false, false},
-		{[]string{"uniq2.go", "hoge", "error"}, true, false, false},
+		{[]string{"puniq.go"}, false, false, true},
+		{[]string{"puniq.go", "-"}, false, false, true},
+		{[]string{"puniq.go", "hoge"}, false, false, false},
+		{[]string{"puniq.go", "hoge", "error"}, true, false, false},
 	}
 	for _, td := range testdata {
 		args, err := NewArguments(td.args)

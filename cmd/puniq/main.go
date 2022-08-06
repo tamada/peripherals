@@ -2,29 +2,30 @@ package main
 
 import (
 	"fmt"
+	"github.com/tamada/peripherals"
 	"os"
 
 	flag "github.com/spf13/pflag"
-	"github.com/tamada/uniq2"
+	"github.com/tamada/peripherals/puniq"
 )
 
 /*
-VERSION shows version of uniq2.
+VERSION shows version of puniq.
 */
-const VERSION = "1.1.1"
+const VERSION = "2.0.0"
 
 func helpMessage(appName string) string {
-	return fmt.Sprintf(`%s version %s
+	return fmt.Sprintf(`%s version %s (%s)
 %s [OPTIONS] [INPUT [OUTPUT]]
 OPTIONS
     -a, --adjacent        delete only adjacent duplicated lines.
     -d, --delete-lines    only prints deleted lines.
     -i, --ignore-case     case sensitive.
-    -h, --help            print this message.
 
+    -h, --help            print this message.
 INPUT                     gives file name of input.  If argument is single dash ('-')
                           or absent, the program read strings from stdin.
-OUTPUT                    represents the destination.`, appName, VERSION, appName)
+OUTPUT                    represents the destination.`, appName, VERSION, peripherals.Version(), appName)
 }
 
 func printError(err error, statusCode int) int {
@@ -35,8 +36,8 @@ func printError(err error, statusCode int) int {
 	return statusCode
 }
 
-func perform(flags *flag.FlagSet, opts *uniq2.Parameters) int {
-	var args, err = uniq2.NewArguments(flags.Args()[1:])
+func perform(flags *flag.FlagSet, opts *puniq.Parameters) int {
+	var args, err = puniq.NewArguments(flags.Args()[1:])
 	if err != nil {
 		return printError(err, 1)
 	}
@@ -54,20 +55,20 @@ func goMain(args []string) int {
 		return printError(err, 1)
 	}
 	if opts.helpFlag {
-		return printError(fmt.Errorf(helpMessage("uniq2")), 0)
+		return printError(fmt.Errorf(helpMessage("puniq")), 0)
 	}
 	return perform(flags, opts.params)
 }
 
 type options struct {
-	params   *uniq2.Parameters
+	params   *puniq.Parameters
 	helpFlag bool
 }
 
 func buildFlagSet() (*flag.FlagSet, *options) {
-	var opts = options{params: &uniq2.Parameters{}}
+	var opts = options{params: &puniq.Parameters{}}
 	var flags = flag.NewFlagSet("uniq2", flag.ContinueOnError)
-	flags.Usage = func() { fmt.Println(helpMessage("uniq2")) }
+	flags.Usage = func() { fmt.Println(helpMessage("puniq")) }
 	flags.BoolVarP(&opts.params.Adjacent, "adjacent", "a", false, "delete only the adjacent duplicate lines")
 	flags.BoolVarP(&opts.params.DeleteLines, "delete-lines", "d", false, "only prints deleted lines")
 	flags.BoolVarP(&opts.params.IgnoreCase, "ignore-case", "i", false, "case sensitive")

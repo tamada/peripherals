@@ -1,4 +1,4 @@
-package uniq2
+package puniq
 
 import (
 	"bufio"
@@ -8,17 +8,13 @@ import (
 	"strings"
 )
 
-/*
-Arguments shows data source and destination.
-*/
+// Arguments shows data source and destination.
 type Arguments struct {
 	input  io.Reader
 	output io.Writer
 }
 
-/*
-NewArguments creates an instance of Arguments from given args.
-*/
+// NewArguments creates an instance of Arguments from given args.
 func NewArguments(args []string) (*Arguments, error) {
 	input, output, err := parseCliArguments(args)
 	if err != nil {
@@ -27,9 +23,7 @@ func NewArguments(args []string) (*Arguments, error) {
 	return &Arguments{input: input, output: output}, nil
 }
 
-/*
-Close closes data source and destination.
-*/
+// Close closes data source and destination.
 func (args *Arguments) Close() {
 	closeImpl(args.input)
 	closeImpl(args.output)
@@ -42,9 +36,7 @@ func closeImpl(stream interface{}) {
 	}
 }
 
-/*
-Perform executes Uniq2 by following the given Parameters.
-*/
+// Perform executes Uniq2 by following the given Parameters.
 func (args *Arguments) Perform(opts *Parameters) error {
 	uniqer := opts.BuildUniqer()
 	return args.performImpl(uniqer)
