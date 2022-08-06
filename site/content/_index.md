@@ -1,5 +1,5 @@
 ---
-title: uniq2
+title: peripherals
 ---
 
 [![Build Status](https://github.com/tamada/uniq2/workflows/build/badge.svg?branch=master)](https://github.com/tamada/uniq2/actions?workflow=build)
