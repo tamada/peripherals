@@ -1,6 +1,6 @@
 GO=go
 SHELL=/bin/bash
-VERSION := 0.9.2
+VERSION := 0.9.3
 NAME := peripherals
 DIST := $(NAME)-$(VERSION)
 
@@ -37,7 +37,7 @@ format: setup
 
 define _createDist
 	echo -n "creating peripheral-$(1)-$(2).tar.gz..."
-	mkdir -p dist/$(1)-$(2)/peripherals-${VERSION}/bin
+	mkdir -p dist/$(1)-$(2)/$(DIST)/bin
 	cp README.md LICENSE dist/$(1)-$(2)/peripherals-${VERSION}/
 	GOOS=$(1) GOARCH=$(2) go build -tags $(1) -o dist/$(1)-$(2)/$(DIST)/bin/pskip$(3) cmd/pskip/*.go
 	GOOS=$(1) GOARCH=$(2) go build -tags $(1) -o dist/$(1)-$(2)/$(DIST)/bin/ptake$(3) cmd/ptake/*.go

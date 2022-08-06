@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-const VERSION = "0.9.2"
+const VERSION = "0.9.3"
 
 func Version(appName string) string {
 	return fmt.Sprintf("%s version %s", appName, VERSION)
