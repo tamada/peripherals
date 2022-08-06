@@ -13,12 +13,12 @@ func printHelp(prog string) string {
 	return fmt.Sprintf(`%s version %s (%s)
 %s <expression>
 file operations
-    -b|-c|-d|-e|-f|-g|-h|-k|-p|-r|-s|-u|-w|-x|-L|-O|-G|-S file
+    -b|-c|-d|-e|-f|-g|-k|-p|-r|-s|-u|-w|-x|-L|-O|-G|-S file
     -t file_descriptor
     file1 -nt|-ot|-ef file2
 string operations
     [-n|-z] string
-    s1 =|==|!=|>|>=|<|<= s2
+    s1 =|==|!=|>|>=|<|<=|-starts|-ends|-contains s2
 number operations
     n1 -eq|-ne|-gt|-ge|-lt|-le n2
 combination operations

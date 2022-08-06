@@ -135,7 +135,7 @@ func operation(opts, target string) (bool, error) {
 		return err == nil && stat.Mode().IsRegular(), nil
 	case "-g": // group ID flag
 		return err == nil && stat.Mode() == os.ModeSetgid, nil
-	case "-h", "-L": // symbolic link
+	case "-L", "-h": // symbolic link
 		return err == nil && stat.Mode() == os.ModeSymlink, nil
 	case "-k": // sticky bit set
 		return err == nil && stat.Mode() == os.ModeSticky, nil
@@ -162,7 +162,7 @@ func operation(opts, target string) (bool, error) {
 }
 
 var stringOpts = []string{
-	"==", "=", "!=", ">", ">=", "<", "<=",
+	"==", "=", "!=", ">", ">=", "<", "<=", "-starts", "-ends", "-contains",
 }
 var numberOpts = []string{
 	"-eq", "-ne", "-lt", "-le", "-gt", "-ge",
@@ -186,6 +186,12 @@ func compareStrings(item1, item2 string, opts string) (bool, error) {
 		return strings.Compare(item1, item2) < 0, nil
 	case "<=":
 		return strings.Compare(item1, item2) <= 0, nil
+	case "-starts":
+		return strings.HasPrefix(item1, item2), nil
+	case "-ends":
+		return strings.HasSuffix(item1, item2), nil
+	case "-contains":
+		return strings.Contains(item1, item2), nil
 	}
 	return false, fmt.Errorf("%s: unknown operation", opts)
 }
