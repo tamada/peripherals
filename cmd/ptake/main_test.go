@@ -22,7 +22,7 @@ func Example_until() {
 func Example_printHelp() {
 	goMain([]string{"ptake", "--help"})
 	// Output:
-	// ptake version 1.0.0 (tamada/peripherals 1.0.0)
+	// ptake version 1.0.0 (tamada/peripherals 0.9.0)
 	// ptake [OPTIONS] [FILEs...]
 	// OPTIONS
 	//     -b, --bytes <NUMBER>       take NUMBER bytes (same as head command).

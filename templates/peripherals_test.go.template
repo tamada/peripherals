@@ -1,0 +1,14 @@
+package peripherals
+
+import "testing"
+
+func TestVersion(t *testing.T) {
+	if VERSION != "${VERSION}" {
+		t.Errorf("mismatch version wont %s, but got %s", "${VERSION}", VERSION)
+	}
+	wontVersion := "tamada/peripherals ${VERSION}"
+	gotVersion := Version()
+	if wontVersion != gotVersion {
+		t.Errorf("mismatch version information wont %s, but got %s", wontVersion, gotVersion)
+	}
+}

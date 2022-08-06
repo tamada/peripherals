@@ -12,7 +12,7 @@ func Example_uniq2() {
 func Example_printHelp() {
 	goMain([]string{"puniq", "--help"})
 	// Output:
-	// puniq version 2.0.0 (tamada/peripherals 1.0.0)
+	// puniq version 2.0.0 (tamada/peripherals 0.9.0)
 	// puniq [OPTIONS] [INPUT [OUTPUT]]
 	// OPTIONS
 	//     -a, --adjacent        delete only adjacent duplicated lines.

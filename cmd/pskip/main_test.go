@@ -20,7 +20,7 @@ func Example_until() {
 func Example_printHelp() {
 	goMain([]string{"pskip", "--help"})
 	// Output:
-	// pskip version 1.0.0 (tamada/peripherals 1.0.0)
+	// pskip version 1.0.0 (tamada/peripherals 0.9.0)
 	// pskip [OPTIONS] [FILEs...]
 	// OPTIONS
 	//     -b, --bytes <NUMBER>       skip NUMBER bytes (same as head command).

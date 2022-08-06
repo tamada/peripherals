@@ -7,7 +7,7 @@ import (
 func Example_printHelp() {
 	goMain([]string{"ptest", "--help"})
 	// Output:
-	// ptest version 1.0.0 (tamada/peripherals 1.0.0)
+	// ptest version 1.0.0 (tamada/peripherals 0.9.0)
 	// ptest <expression>
 	// file operations
 	//     -b|-c|-d|-e|-f|-g|-k|-p|-r|-s|-u|-w|-x|-L|-O|-G|-S file
