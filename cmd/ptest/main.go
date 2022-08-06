@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-const VERSION = "0.9.0"
+const VERSION = "0.9.1"
 
 func helpMessage(prog string) string {
 	return fmt.Sprintf(`%s <expression>
