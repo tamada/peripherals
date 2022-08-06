@@ -4,10 +4,10 @@ import "testing"
 
 func TestVersion(t *testing.T) {
 	if VERSION != "${VERSION}" {
-		t.Errorf("mismatch version wont %s, but got %s", "${VERSION}", VERSION)
+		t.Errorf("mismatch version wont %s, but got %s", "", VERSION)
 	}
-	wontVersion := "tamada/peripherals ${VERSION}"
-	gotVersion := Version()
+	wontVersion := "tamada/peripherals version ${VERSION}"
+	gotVersion := Version("tamada/peripherals")
 	if wontVersion != gotVersion {
 		t.Errorf("mismatch version information wont %s, but got %s", wontVersion, gotVersion)
 	}

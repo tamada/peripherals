@@ -22,7 +22,6 @@ func Example_until() {
 func Example_printHelp() {
 	goMain([]string{"ptake", "--help"})
 	// Output:
-	// ptake version 1.0.0 (tamada/peripherals 0.9.0)
 	// ptake [OPTIONS] [FILEs...]
 	// OPTIONS
 	//     -b, --bytes <NUMBER>       take NUMBER bytes (same as head command).
@@ -34,6 +33,7 @@ func Example_printHelp() {
 	//     -q, --no-header            suppress printing of headers when multiple files are being examined.
 	//
 	//     -h, --help                 print this message and exit.
+	//     -v, --version              print the version information and exit.
 	// FILE
 	//     gives file name for the input. if this argument is single dash ('-') or absent,
 	//     it reads strings from STDIN.

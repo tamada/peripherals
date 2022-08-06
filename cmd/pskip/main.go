@@ -12,11 +12,8 @@ import (
 	"os"
 )
 
-const VERSION = ""
-
 func helpMessage(appName string) string {
-	return fmt.Sprintf(`%s version %s (%s)
-%s [OPTIONS] [FILEs...]
+	return fmt.Sprintf(`%s [OPTIONS] [FILEs...]
 OPTIONS
     -b, --bytes <NUMBER>       skip NUMBER bytes (same as head command).
     -n, --lines <NUMBER>       skip NUMBER lines (same as head command).
@@ -27,11 +24,12 @@ OPTIONS
     -q, --no-header            suppress printing of headers when multiple files are being examined.
 
     -h, --help                 print this message and exit.
+    -v, --version              print the version information and exit.
 FILE
     gives file name for the input. if this argument is single dash ('-') or absent,
     it reads strings from STDIN.
     if more than a single file is specified, each file is separated by a header
-    consisting of the string '==> XXX <==' where 'XXX' is the name of the file.`, appName, VERSION, peripherals.Version(), appName)
+    consisting of the string '==> XXX <==' where 'XXX' is the name of the file.`, appName)
 }
 
 func buildFlags() (*flag.FlagSet, *common.Options) {
@@ -42,8 +40,9 @@ func buildFlags() (*flag.FlagSet, *common.Options) {
 	flags.StringVarP(&opts.Keyword, "until", "u", "", "skip lines until KEYWORD is appeared.")
 	flags.IntVarP(&opts.Bytes, "bytes", "b", -1, "skip BYTES bytes (same as head command).")
 	flags.IntVarP(&opts.Lines, "lines", "n", -1, "skip NUMBER lines (same as head command).")
-	flags.BoolVarP(&opts.HelpFlag, "help", "h", false, "print this message and exit")
 	flags.StringVarP(&opts.Predicate, "while", "w", "", "skip lines while PREDICATE is satisfied.")
+	flags.BoolVarP(&opts.HelpFlag, "help", "h", false, "print this message and exit")
+	flags.BoolVarP(&opts.VersionFlag, "version", "v", false, "print the version information and exit")
 	return flags, opts
 }
 
@@ -69,13 +68,23 @@ func perform(opts *common.Options, args []string) error {
 	return center.SelfOrNil()
 }
 
+func printHelp(opts *common.Options) int {
+	if opts.VersionFlag {
+		fmt.Println(peripherals.Version("pskip"))
+	}
+	if opts.HelpFlag {
+		fmt.Println(helpMessage("pskip"))
+	}
+	return 0
+}
+
 func goMain(args []string) int {
 	flags, opts := buildFlags()
 	if err := flags.Parse(args); err != nil {
 		return common.PrintError(err, 1)
 	}
-	if opts.HelpFlag {
-		return common.PrintError(fmt.Errorf(helpMessage("pskip")), 0)
+	if opts.IsHelp() {
+		return printHelp(opts)
 	}
 	return common.PrintError(perform(opts, flags.Args()[1:]), 2)
 }

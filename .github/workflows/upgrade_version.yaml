@@ -34,10 +34,10 @@ jobs:
 
       - name: Upgrade Version
         run: |
-          for f in cmd/{pskip,ptake,ptest,puniq}/main.go ; do sed 's/const VERSION = \"[0-9.]*\"/const VERSION = \"${{ steps.vars.output.tag }}\"/g' $f > a ; mv a $f ; done
+          for f in cmd/{pskip,ptake,ptest,puniq}/main.go ; do sed 's/const VERSION = \"[0-9.]*\"/const VERSION = \"${{ steps.vars.outputs.tag }}\"/g' $f > a ; mv a $f ; done
           sed 's/VERSION := [0-9.]*/VERSION := ${{ steps.vars.outputs.tag }}/g' Makefile > a ; mv a Makefile
-          sed 's/${VERSION}/${{ steps.vars.output.tag }}/g' templates/peripherals_test.go.template > peripherals_test.go
-          sed 's/${VERSION}/${{ steps.vars.output.tag }}/g' templates/README.md > README.md
+          sed 's/${VERSION}/${{ steps.vars.outputs.tag }}/g' templates/peripherals_test.go.template > peripherals_test.go
+          sed 's/${VERSION}/${{ steps.vars.outputs.tag }}/g' templates/README.md > README.md
 
           git commit -a -m "upgrade version to ${{ steps.vars.outputs.tag }}, ready to publish v${{ steps.vars.outputs.tag }}" || true
 

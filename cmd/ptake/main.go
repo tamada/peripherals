@@ -11,11 +11,8 @@ import (
 	"os"
 )
 
-const VERSION = ""
-
-func helpMessage(program string) string {
-	return fmt.Sprintf(`%s version %s (%s)
-%s [OPTIONS] [FILEs...]
+func helpMessage(appName string) string {
+	return fmt.Sprintf(`%s [OPTIONS] [FILEs...]
 OPTIONS
     -b, --bytes <NUMBER>       take NUMBER bytes (same as head command).
     -n, --lines <NUMBER>       take NUMBER lines (same as head command).
@@ -26,11 +23,12 @@ OPTIONS
     -q, --no-header            suppress printing of headers when multiple files are being examined.
 
     -h, --help                 print this message and exit.
+    -v, --version              print the version information and exit.
 FILE
     gives file name for the input. if this argument is single dash ('-') or absent,
     it reads strings from STDIN.
     if more than a single file is specified, each file is separated by a header
-    consisting of the string '==> XXX <==' where 'XXX' is the name of the file.`, program, VERSION, peripherals.Version(), program)
+    consisting of the string '==> XXX <==' where 'XXX' is the name of the file.`, appName)
 }
 
 func buildFlags() (*flag.FlagSet, *common.Options) {
@@ -70,13 +68,23 @@ func perform(opts *common.Options, args []string) error {
 	return center.SelfOrNil()
 }
 
+func printHelp(opts *common.Options, appName string) int {
+	if opts.VersionFlag {
+		fmt.Println(peripherals.Version(appName))
+	}
+	if opts.HelpFlag {
+		fmt.Println(helpMessage(appName))
+	}
+	return 0
+}
+
 func goMain(args []string) int {
 	flags, opts := buildFlags()
 	if err := flags.Parse(args); err != nil {
 		return common.PrintError(err, 1)
 	}
-	if opts.HelpFlag {
-		return common.PrintError(fmt.Errorf(helpMessage("ptake")), 0)
+	if opts.IsHelp() {
+		return printHelp(opts, "ptake")
 	}
 	return common.PrintError(perform(opts, flags.Args()[1:]), 2)
 }
