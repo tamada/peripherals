@@ -42,8 +42,8 @@ func TestPerformEach(t *testing.T) {
 		{"bytes", createTaker(BYTES, newIValue(5)), "../testdata/test1.txt", "a1\na1"},
 		{"line", createTaker(LINE, newIValue(3)), "../testdata/test1.txt", "a1\na1\na2\n"},
 		{"until", createTaker(UNTIL, newSValue("a3")), "../testdata/test1.txt", "a1\na1\na2\na2\n"},
-		{"while1", createTaker(WHILE, newSValue("../testdata/eval_script.sh")), "../testdata/test1.txt", "a1\na1\n"},
-		{"while2", createTaker(WHILE, newSValue("$PLINE = a1")), "../testdata/test1.txt", "a1\na1\n"},
+		{"while1", createTaker(WHILE, newSValue("$PLINE = a1")), "../testdata/test1.txt", "a1\na1\n"},
+		{"while2", createTaker(WHILE, newSValue("../testdata/eval_script.sh")), "../testdata/test1.txt", "a1\na1\n"},
 	}
 
 	for _, td := range testdata {

@@ -1,4 +1,4 @@
 #! /bin/sh
 
-echo "CLINE: $CLINE"
-exec test "$CLINE" = "a1"
+echo "PLINE: $PLINE"
+exec test "$PLINE" = "a1"

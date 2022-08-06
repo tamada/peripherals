@@ -38,6 +38,6 @@ func setupCmd(se *Evaluator, line string) *exec.Cmd {
 	cmd := exec.Command(se.shellName, se.args...)
 	// cmd.Stdout = os.Stdout
 	// cmd.Stderr = os.Stderr
-	cmd.Env = append(os.Environ(), fmt.Sprintf("CLINE=%s", line))
+	cmd.Env = append(os.Environ(), fmt.Sprintf("PLINE=%s", line))
 	return cmd
 }
