@@ -89,5 +89,5 @@ jobs:
              dist/peripherals-${{ needs.site.outputs.tag }}-darwin-amd64.tar.gz \
              dist/peripherals-${{ needs.site.outputs.tag }}-linux-arm64.tar.gz \
              dist/peripherals-${{ needs.site.outputs.tag }}-linux-amd64.tar.gz \
-             dist/peripherals-${{ needs.site.outputs.tag }}-windows-arm64.tar.gz \
+             dist/peripherals-${{ needs.site.outputs.tag }}-windows-amd64.tar.gz \
              dist/peripherals-${{ needs.site.outputs.tag }}-windows-386.tar.gz -R tamada/peripherals

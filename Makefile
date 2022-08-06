@@ -36,7 +36,7 @@ format: setup
 	goimports -w $$(go list ./... | sed 's/github.com\/tamada\/peripherals//g' | sed 's/^\///g')
 
 define _createDist
-	echo -n "creating peripheral-$(1)-$(2).tar.gz..."
+	echo -n "creating $(DIST)-$(1)-$(2).tar.gz..."
 	mkdir -p dist/$(1)-$(2)/$(DIST)/bin
 	cp README.md LICENSE dist/$(1)-$(2)/peripherals-${VERSION}/
 	GOOS=$(1) GOARCH=$(2) go build -tags $(1) -o dist/$(1)-$(2)/$(DIST)/bin/pskip$(3) cmd/pskip/*.go
