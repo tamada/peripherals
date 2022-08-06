@@ -12,7 +12,7 @@ import (
 /*
 VERSION shows version of puniq.
 */
-const VERSION = "2.0.0"
+const VERSION = ""
 
 func helpMessage(appName string) string {
 	return fmt.Sprintf(`%s version %s (%s)

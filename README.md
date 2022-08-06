@@ -1,7 +1,7 @@
 # peripheral utility commands
 
 [![License](https://img.shields.io/badge/License-MIT-green)](https://github.com/tamada/peripherals/blob/main/LICENSE)
-[![Version](https://img.shields.io/badge/Version-v0.9.0-green)](https://github.com/tamada/btmeister/releases/tag/v0.9.0)
+[![Version](https://img.shields.io/badge/Version-v-green)](https://github.com/tamada/btmeister/releases/tag/v)
 
 peripheral utility commands for the shell by contrasting [GNU coreutils](https://www.gnu.org/software/coreutils/).
 
@@ -131,7 +131,6 @@ combined operation
     expression -o expression    true if either expression1 or expression2 are true.  The -o operator has lower precedence than the -a operator.
     ( expression )              true if expression is true
 ```
-
 
 ## License
 

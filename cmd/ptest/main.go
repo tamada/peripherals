@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-const VERSION = "1.0.0"
+const VERSION = ""
 
 func printHelp(prog string) string {
 	return fmt.Sprintf(`%s version %s (%s)
