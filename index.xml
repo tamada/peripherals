@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>peripherals</title>
+    <link>https://tamada.github.io/peripherals/</link>
+    <description>Recent content on peripherals</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://tamada.github.io/peripherals/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>:runner: Usage</title>
+      <link>https://tamada.github.io/peripherals/usage/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://tamada.github.io/peripherals/usage/</guid>
+      <description>uniq2 Description Delete duplicated lines.
+GNU core utilities have uniq command for deleting duplicate lines. However, uniq command deletes only continuous duplicate lines. When deleting not continuous duplicate lines, we use sort command together, in that case, the order of the list was not kept.
+We want to delete not continuous duplicated lines with remaining the order.</description>
+    </item>
+    
+    <item>
+      <title>:smile: About the Project</title>
+      <link>https://tamada.github.io/peripherals/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://tamada.github.io/peripherals/about/</guid>
+      <description>License 
+Authors  Haruaki Tamada  </description>
+    </item>
+    
+    <item>
+      <title>Demo</title>
+      <link>https://tamada.github.io/peripherals/demo/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://tamada.github.io/peripherals/demo/</guid>
+      <description>Usage uniq2 [OPTIONS] [INPUT [OUTPUT]] OPTIONS -a, --adjacent delete only adjacent duplicated lines. -d, --delete-lines only prints deleted lines. -i, --ignore-case case sensitive. -h, --help print this message. INPUT gives file name of input. If argument is single dash (&amp;#39;-&amp;#39;) or absent, the program read strings from stdin. OUTPUT represents the destination. Demo $ cat -n testdata/test1.txt 1	a1 2	a1 # &amp;lt;- is the duplicate of the previous line. 3	a2 4	a2 # &amp;lt;- is the duplicate of the previous line.</description>
+    </item>
+    
+  </channel>
+</rss>
