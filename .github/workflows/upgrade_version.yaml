@@ -5,7 +5,7 @@ on:
     branches:
       - release/v*
 
-jogs:
+jobs:
   upgrade_version:
     runs-on: ubuntu-latest
 
