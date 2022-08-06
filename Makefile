@@ -1,6 +1,6 @@
 GO=go
 SHELL=/bin/bash
-VERSION := 0.9.3
+VERSION := 0.9.4
 NAME := peripherals
 DIST := $(NAME)-$(VERSION)
 
