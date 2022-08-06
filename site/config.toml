@@ -1,7 +1,7 @@
-baseURL = "https://tamada.github.io/uniq2"
+baseURL = "https://tamada.github.io/peripherals"
 languageCode = "en-us"
 defaultContentLanguage = "en"
-title = "uniq2"
+title = "peripherals"
 theme = "cayman-hugo-theme"
 enableEmoji = true
 googleAnalytics = "UA-62401730-7"
@@ -10,24 +10,28 @@ pygmentsCodefences = true
 pygmentsStyle = "pygments"
 
 [params]
-    project_name = "uniq2"
-    project_tagline = "Deletes duplicate lines"
+    project_name = "peripherals"
+    project_tagline = "Peripherals utility commands for the shell"
     dateFormat = "2006-01-02"
 
-    footer = "[![GitHub](https://img.shields.io/badge/GitHub-tamada/uniq2-blueviolet.svg?logo=github)](https://github.com/tamada/uniq2) Made with [Hugo](https://gohugo.io/). Theme by [Cayman](https://github.com/zwbetz-gh/cayman-hugo-theme). Deployed to [GitHub Pages](https://pages.github.com/)."
+    footer = "[![GitHub](https://img.shields.io/badge/GitHub-tamada/peripherals-blueviolet.svg?logo=github)](https://github.com/tamada/peripherals) Made with [Hugo](https://gohugo.io/). Theme by [Cayman](https://github.com/zwbetz-gh/cayman-hugo-theme). Deployed to [GitHub Pages](https://pages.github.com/)."
 
     katex = true
 
 [menu]
     [[menu.nav]]
-        name = "Home"
+        name = ":house: Home"
         url = "/"
         weight = 1
     [[menu.nav]]
-        name = "Demo"
-        url = "/demo/"
+        name = ":anchor: Install"
+        url = "/install"
         weight = 2
     [[menu.nav]]
-        name = "About"
-        url = "/about/"
+        name = ":runner: Usage"
+        url = "/usage"
         weight = 3
+    [[menu.nav]]
+        name = ":smile: About"
+        url = "/about"
+        weight = 4

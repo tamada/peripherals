@@ -1,6 +1,7 @@
 GO=go
 SHELL=/bin/bash
-VERSION := 1.0.0
+VERSION := 0.9.1
+NAME := peripherals
 DIST := $(NAME)-$(VERSION)
 
 all: test build
@@ -16,9 +17,10 @@ define _buildSubcommand
 endef
 
 build: setup
+	@$(call _buildSubcommand,pskip)
 	@$(call _buildSubcommand,ptake)
-	@$(call _buildSubcommand,puniq)
 	@$(call _buildSubcommand,ptest)
+	@$(call _buildSubcommand,puniq)
 
 lint: setup format
 	$(GO) vet $$(go list ./...)
@@ -33,5 +35,26 @@ format: setup
 # Other packages are no problem, their have the same name with directories.
 	goimports -w $$(go list ./... | sed 's/github.com\/tamada\/peripherals//g' | sed 's/^\///g')
 
+define _createDist
+	echo -n "creating peripheral-$(1)-$(2).tar.gz..."
+	mkdir -p dist/$(1)-$(2)/peripherals-${VERSION}/bin
+	cp README.md LICENSE dist/$(1)-$(2)/peripherals-${VERSION}/
+	GOOS=$(1) GOARCH=$(2) go build -tags $(1) -o dist/$(1)-$(2)/$(DIST)/bin/pskip$(3) cmd/pskip/*.go
+	GOOS=$(1) GOARCH=$(2) go build -tags $(1) -o dist/$(1)-$(2)/$(DIST)/bin/ptake$(3) cmd/ptake/*.go
+	GOOS=$(1) GOARCH=$(2) go build -tags $(1) -o dist/$(1)-$(2)/$(DIST)/bin/ptest$(3) cmd/ptest/*.go
+	GOOS=$(1) GOARCH=$(2) go build -tags $(1) -o dist/$(1)-$(2)/$(DIST)/bin/puniq$(3) cmd/puniq/*.go
+	tar cfz dist/$(DIST)-$(1)-$(2).tar.gz -C dist/$(1)-$(2) $(DIST)
+	echo "done"
+endef
+
+dist:
+	@$(call _createDist,darwin,arm64,)
+	@$(call _createDist,darwin,amd64,)
+	@$(call _createDist,linux,arm64,)
+	@$(call _createDist,linux,amd64,)
+	@$(call _createDist,windows,amd64,.exe)
+	@$(call _createDist,windows,386,.exe)
+
 clean:
-	rm -rf bin
+	$(GO) clean
+	rm -rf bin dist

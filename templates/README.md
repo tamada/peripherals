@@ -1,7 +1,7 @@
 # peripheral utility commands
 
 [![License](https://img.shields.io/badge/License-MIT-green)](https://github.com/tamada/peripherals/blob/main/LICENSE)
-[![Version](https://img.shields.io/badge/Version-v0.9.1-green)](https://github.com/tamada/btmeister/releases/tag/v0.9.1)
+[![Version](https://img.shields.io/badge/Version-v${VERSION}-green)](https://github.com/tamada/btmeister/releases/tag/v${VERSION})
 
 peripheral utility commands for the shell by contrasting [GNU coreutils](https://www.gnu.org/software/coreutils/).
 

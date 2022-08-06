@@ -1,0 +1,48 @@
+name: upgrade_version
+
+on:
+  push:
+    branches:
+      - release/v*
+
+jobs:
+  upgrade_version:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Git Tag Name
+        id: vars
+        run: |
+          echo "::set-output name=branch::${GITHUB_REF#refs/heads/}"
+          echo "::set-output name=tag::${GITHUB_REF##**/v}"
+
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ steps.vars.output.branch }}
+          fetch-depth: 0
+
+      - name: Initialize Git
+        shell: bash
+        run: |
+          git config --global user.name  "GitHub Actions"
+          git config --global user.email "action@github.com"
+          auth_header="$(git config --local --get http.https://github.com/.extraheader)"
+          git submodule sync --recursive
+          git -c "http.extraheader=$auth_header" -c protocol.version=2 submodule update --init --force --recursive --depth=1
+          git worktree add site/public gh-pages
+
+      - name: Upgrade Version
+        run: |
+          for f in cmd/{pskip,ptake,ptest,puniq}/main.go ; do sed 's/const VERSION = \"[0-9.]*\"/const VERSION = \"${{ steps.vars.outputs.tag }}\"/g' $f > a ; mv a $f ; done
+          sed 's/VERSION := [0-9.]*/VERSION := ${{ steps.vars.outputs.tag }}/g' Makefile > a ; mv a Makefile
+          sed 's/${VERSION}/${{ steps.vars.outputs.tag }}/g' templates/peripherals_test.go.template > peripherals_test.go
+          sed 's/${VERSION}/${{ steps.vars.outputs.tag }}/g' templates/README.md > README.md
+
+          git commit -a -m "upgrade version to ${{ steps.vars.outputs.tag }}, ready to publish v${{ steps.vars.outputs.tag }}" || true
+
+      - name: Push branch
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ steps.vars.outputs.branch }}

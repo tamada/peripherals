@@ -20,7 +20,6 @@ func Example_until() {
 func Example_printHelp() {
 	goMain([]string{"pskip", "--help"})
 	// Output:
-	// pskip version 1.0.0 (tamada/peripherals 1.0.0)
 	// pskip [OPTIONS] [FILEs...]
 	// OPTIONS
 	//     -b, --bytes <NUMBER>       skip NUMBER bytes (same as head command).
@@ -32,6 +31,7 @@ func Example_printHelp() {
 	//     -q, --no-header            suppress printing of headers when multiple files are being examined.
 	//
 	//     -h, --help                 print this message and exit.
+	//     -v, --version              print the version information and exit.
 	// FILE
 	//     gives file name for the input. if this argument is single dash ('-') or absent,
 	//     it reads strings from STDIN.

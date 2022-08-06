@@ -7,11 +7,10 @@ import (
 	"os"
 )
 
-const VERSION = "1.0.0"
+const VERSION = "0.9.1"
 
-func printHelp(prog string) string {
-	return fmt.Sprintf(`%s version %s (%s)
-%s <expression>
+func helpMessage(prog string) string {
+	return fmt.Sprintf(`%s <expression>
 file operations
     -b|-c|-d|-e|-f|-g|-k|-p|-r|-s|-u|-w|-x|-L|-O|-G|-S file
     -t file_descriptor
@@ -27,19 +26,41 @@ combination operations
     expression -o expression
     ( expression )
 other operations
-    --help               print this message.`, prog, VERSION, peripherals.Version(), prog)
+    --help               print this message and exit.
+    --version            print the version information and exit.`, prog)
 }
 
 func perform(tokens []string) (bool, error) {
 	return ptest.New(tokens).Eval()
 }
 
-func goMain(args []string) int {
-	for _, str := range args[1:] {
-		if str == "--help" {
-			fmt.Println(printHelp("ptest"))
-			return 0
+func printHelp(appName string, versionFlag, helpFlag bool) int {
+	if versionFlag {
+		fmt.Println(peripherals.Version("ptest"))
+	}
+	if helpFlag {
+		fmt.Println(helpMessage("ptest"))
+	}
+	return 0
+}
+
+func findHelpFlag(args []string) (bool, bool) {
+	versionFlag := false
+	helpFlag := false
+	for _, arg := range args {
+		if arg == "--version" {
+			versionFlag = true
+		} else if arg == "--help" {
+			helpFlag = true
 		}
+	}
+	return helpFlag, versionFlag
+}
+
+func goMain(args []string) int {
+	helpFlag, versionFlag := findHelpFlag(args[1:])
+	if helpFlag || versionFlag {
+		return printHelp("ptest", versionFlag, helpFlag)
 	}
 	result, err := perform(args[1:])
 	if err != nil {

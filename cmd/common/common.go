@@ -7,13 +7,14 @@ import (
 )
 
 type Options struct {
-	Lines     int
-	Bytes     int
-	Keyword   string
-	Predicate string
-	NoHeader  bool
-	HelpFlag  bool
-	TType     ptake.TakerType
+	Lines       int
+	Bytes       int
+	Keyword     string
+	Predicate   string
+	NoHeader    bool
+	HelpFlag    bool
+	VersionFlag bool
+	TType       ptake.TakerType
 }
 
 func New() *Options {
@@ -72,6 +73,10 @@ func (opts *Options) Validate() error {
 	return nil
 }
 
+func (opts *Options) IsHelp() bool {
+	return opts.HelpFlag || opts.VersionFlag
+}
+
 func PrintError(err error, statusOnError int) int {
 	if err == nil {
 		return 0
@@ -79,4 +84,3 @@ func PrintError(err error, statusOnError int) int {
 	fmt.Println(err.Error())
 	return statusOnError
 }
-
