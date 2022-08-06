@@ -39,8 +39,7 @@ jogs:
           sed 's/${VERSION}/${{ steps.vars.output.tag }}/g' templates/peripherals_test.go.template > peripherals_test.go
           sed 's/${VERSION}/${{ steps.vars.output.tag }}/g' templates/README.md > README.md
 
-          git commit -a -m "upgrade version to ${{ steps.vars.outputs.tag }}, ready to publish v${{ steps.vars.outputs.ta
-  g }}" || true
+          git commit -a -m "upgrade version to ${{ steps.vars.outputs.tag }}, ready to publish v${{ steps.vars.outputs.tag }}" || true
 
       - name: Push branch
         uses: ad-m/github-push-action@master
