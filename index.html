@@ -28,11 +28,13 @@
 <body>
   <section class="page-header">
   
+  <img src="/peripherals/images/logo.svg" class="avatar" alt="project_logo">
+  
   <h1 class="project-name">
     peripherals
   </h1>
   <h2 class="project-tagline">
-    Peripherals utility commands for the shell
+    Peripheral Utility Commands for the Shell Environment
   </h2>
   <nav>
     
@@ -69,38 +71,37 @@
 
 <h1>peripherals</h1>
 
-<p><a href="https://github.com/tamada/uniq2/actions?workflow=build"><img src="https://github.com/tamada/uniq2/workflows/build/badge.svg?branch=master" alt="Build Status"></a>
-<a href="https://coveralls.io/github/tamada/uniq2?branch=master"><img src="https://coveralls.io/repos/github/tamada/uniq2/badge.svg?branch=master" alt="Coverage Status"></a>
-<a href="https://codebeat.co/projects/github-com-tamada-uniq2-master"><img src="https://codebeat.co/badges/855266ea-99d4-4d80-ac43-81a1712f0f90" alt="codebeat badge"></a>
-<a href="https://goreportcard.com/report/github.com/tamada/uniq2"><img src="https://goreportcard.com/badge/github.com/tamada/uniq2" alt="Go Report Card"></a>
-<a href="https://github.com/tamada/uniq2/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-WTFPL-blue.svg" alt="License"></a>
-<a href="https://github.com/tamada/uniq2/releases/tag/v1.1.1"><img src="https://img.shields.io/badge/Version-1.1.1-yellowgreen.svg" alt="Version"></a></p>
-<h2 id="description">Description</h2>
-<p>Delete duplicated lines.</p>
-<p>GNU core utilities have <code>uniq</code> command for deleting duplicate lines.
-However, <code>uniq</code> command deletes only continuous duplicate lines.
-When deleting not continuous duplicate lines, we use <code>sort</code> command together, in that case, the order of the list was not kept.</p>
-<p>We want to delete not continuous duplicated lines with remaining the order.</p>
-<h3 id="install-by-homebrew">Install by Homebrew</h3>
-<p>Simply type the following commands.</p>
-<div class="highlight"><pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ brew tap tamada/brew <span style="color:#408080;font-style:italic"># &lt;- only the first time</span>
-$ brew install uniq2
-</code></pre></div><h3 id="install-by-go">Install by Go</h3>
-<p>Simply type the following command.</p>
-<div class="highlight"><pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ go get github.com/tamada/uniq2
-</code></pre></div><h2 id="usage">Usage</h2>
-<pre tabindex="0"><code>uniq2 [OPTIONS] [INPUT [OUTPUT]]
-OPTIONS
-    -a, --adjacent        delete only adjacent duplicated lines.
-    -d, --delete-lines    only prints deleted lines.
-    -i, --ignore-case     case sensitive.
-    -h, --help            print this message.
-
-INPUT                     gives file name of input.  If argument is single dash ('-')
-                          or absent, the program read strings from stdin.
-OUTPUT                    represents the destination.
-</code></pre><h2 id="license">License</h2>
-<p><a href="https://github.com/tamada/uniq2/blob/master/LICENSE">WTFPL</a></p>
+<p><a href="https://github.com/tamada/peripherals/actions/workflows/build.yaml"><img src="https://github.com/tamada/peripherals/actions/workflows/build.yaml/badge.svg" alt="build"></a>
+<a href="https://coveralls.io/github/tamada/peripherals?branch=main"><img src="https://coveralls.io/repos/github/tamada/peripherals/badge.svg?branch=main" alt="Coverage Status"></a>
+<a href="https://codebeat.co/projects/github-com-tamada-peripherals-main"><img src="https://codebeat.co/badges/57405211-d149-4be5-9f9b-bfe72144b058" alt="codebeat badge"></a></p>
+<p><a href="https://github.com/tamada/peripherals/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-green" alt="License"></a>
+<a href="https://github.com/tamada/btmeister/releases/tag/v0.9.5"><img src="https://img.shields.io/badge/Version-v0.9.5-green" alt="Version"></a></p>
+<p><a href="https://github.com/tamada/btmeister/releases/tag/v$%7BVERSION%7D"><img src="https://img.shields.io/badge/Homebrew-tamada/brew/peripherals-yellow?logo=homebrew" alt="Homebrew"></a></p>
+<h2 id="-description">🗣 Description</h2>
+<p>Peripheral utility commands for the shell by contrasting <a href="https://www.gnu.org/software/coreutils/">GNU coreutils</a>.
+This product includes the following commands.</p>
+<ul>
+<li><a href="usage#puniq"><code>puniq</code></a>
+<ul>
+<li>deletes the duplicated lines.</li>
+</ul>
+</li>
+<li><a href="usage#ptake"><code>ptake</code></a>
+<ul>
+<li>print lines while satisfying the predicate.</li>
+</ul>
+</li>
+<li><a href="usage#pskip"><code>pskip</code></a>
+<ul>
+<li>skip lines while satisfying the predicate.</li>
+</ul>
+</li>
+<li><a href="usage#ptest"><code>ptest</code></a>
+<ul>
+<li>another implementation of <code>test</code> command.</li>
+</ul>
+</li>
+</ul>
 
 
 <ul>

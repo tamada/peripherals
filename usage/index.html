@@ -28,11 +28,13 @@
 <body>
   <section class="page-header">
   
+  <img src="/peripherals/images/logo.svg" class="avatar" alt="project_logo">
+  
   <h1 class="project-name">
     peripherals
   </h1>
   <h2 class="project-tagline">
-    Peripherals utility commands for the shell
+    Peripheral Utility Commands for the Shell Environment
   </h2>
   <nav>
     
@@ -67,14 +69,177 @@
   <section class="main-content">
     
   <h1>🏃‍♂️ Usage</h1>
-  <h2 id="uniq2">uniq2</h2>
-<h3 id="description">Description</h3>
+  <ul>
+<li><a href="#puniq"><code>puniq</code></a>
+<a href="#-description"><span class="label_button">Description</span></a>
+<a href="#-usage"><span class="label_button">Usage</span></a>
+<a href="#-demo"><span class="label_button">Demo</span></a>
+<a href="#-utility"><span class="label_button">Utility</span></a></li>
+<li><a href="#ptake"><code>ptake</code></a>
+<a href="#-description-1"><span class="label_button">Description</span></a>
+<a href="#-usage-1"><span class="label_button">Usage</span></a></li>
+<li><a href="#pskip"><code>pskip</code></a>
+<a href="#-description-2"><span class="label_button">Description</span></a>
+<a href="#-usage-2"><span class="label_button">Usage</span></a></li>
+<li><a href="#ptest"><code>ptest</code></a>
+<a href="#-description-2"><span class="label_button">Description</span></a>
+<a href="#-usage-2"><span class="label_button">Usage</span></a></li>
+</ul>
+<h2 id="puniq"><code>puniq</code></h2>
+<h3 id="-description">🗣 Description</h3>
 <p>Delete duplicated lines.</p>
 <p>GNU core utilities have <code>uniq</code> command for deleting duplicate lines.
 However, <code>uniq</code> command deletes only continuous duplicate lines.
 When deleting not continuous duplicate lines, we use <code>sort</code> command together, in that case, the order of the list was not kept.</p>
-<p>We want to delete not continuous duplicated lines with remaining the order.</p>
+<p>We want to delete not continuous duplicated lines with remaining the order.
+This command is the same as <a href="https://github.com/tamada/uniq2"><code>uniq2</code></a></p>
+<h3 id="-usage">🏃‍♂️ Usage</h3>
+<div class="highlight"><pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">puniq <span style="color:#666">[</span>OPTIONS<span style="color:#666">]</span> <span style="color:#666">[</span>INPUT <span style="color:#666">[</span>OUTPUT<span style="color:#666">]]</span>
+OPTIONS
+    -a, --adjacent        delete only adjacent duplicated lines.
+    -d, --delete-lines    only prints deleted lines.
+    -i, --ignore-case     <span style="color:#008000;font-weight:bold">case</span> sensitive.
 
+    -h, --help            print this message.
+INPUT       gives file name of input.  If argument is single dash <span style="color:#666">(</span><span style="color:#ba2121">&#39;-&#39;</span><span style="color:#666">)</span>
+            or absent, the program <span style="color:#008000">read</span> strings from stdin.
+OUTPUT      represents the destination.
+</code></pre></div><h3 id="-demo">🚴‍♂️ Demo</h3>
+<div class="highlight"><pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ cat -n testdata/test1.txt
+1	a1
+2	a1  <span style="color:#408080;font-style:italic"># &lt;- is the duplicate of the previous line.</span>
+3	a2
+4	a2  <span style="color:#408080;font-style:italic"># &lt;- is the duplicate of the previous line.</span>
+5	a3
+6	a4
+7	a1  <span style="color:#408080;font-style:italic"># &lt;- is the duplicate of the first line.</span>
+8	A1
+$ puniq testdata/test1.txt
+a1
+a2
+a3
+a4
+A1
+$ puniq -a testdata/test1.txt  <span style="color:#408080;font-style:italic"># same result as uniq command.</span>
+a1
+a2
+a3
+a4
+a1  <span style="color:#408080;font-style:italic"># &lt;- this line is not deleted.</span>
+A1
+$ puniq -i testdata/test1.txt <span style="color:#408080;font-style:italic"># ignore case</span>
+a1
+a2
+a3
+a4
+$ puniq -d testdata/test1.txt <span style="color:#408080;font-style:italic"># print delete lines.</span>
+a1
+a2
+a1
+</code></pre></div><h4 id="-utility">🏄‍♂️ Utility</h4>
+<p>Delete duplicate entries in PATH</p>
+<div class="highlight"><pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#008000">export</span> <span style="color:#19177c">PATH</span><span style="color:#666">=</span><span style="color:#008000;font-weight:bold">$(</span><span style="color:#008000">echo</span> <span style="color:#19177c">$PATH</span> | tr : <span style="color:#ba2121">&#39;\n&#39;</span> | puniq | paste -s -d : -<span style="color:#008000;font-weight:bold">)</span>
+</code></pre></div><ul>
+<li><code>tr : '\n'</code> replaces <code>:</code> to <code>\n</code> of data from STDIN,</li>
+<li><code>uniq2</code> deletes duplicate lines from the result of <code>tr</code>, and</li>
+<li><code>paste -s -d : -</code> joins given strings with <code>:</code>.</li>
+</ul>
+<h2 id="ptake"><code>ptake</code></h2>
+<h3 id="-description-1">🗣 Description</h3>
+<p>take lines while satisfying the predicate.</p>
+<h3 id="-usage-1">🏃‍♂️ Usage</h3>
+<div class="highlight"><pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">ptake <span style="color:#666">[</span>OPTIONS<span style="color:#666">]</span> <span style="color:#666">[</span>FILEs...<span style="color:#666">]</span>
+OPTIONS
+    -b, --bytes &lt;NUMBER&gt;       take NUMBER bytes <span style="color:#666">(</span>same as head <span style="color:#008000">command</span><span style="color:#666">)</span>.
+    -n, --lines &lt;NUMBER&gt;       take NUMBER lines <span style="color:#666">(</span>same as head <span style="color:#008000">command</span><span style="color:#666">)</span>.
+    -u, --until &lt;KEYWORD&gt;      take lines <span style="color:#008000;font-weight:bold">until</span> KEYWORD is appeared.
+    -w, --while &lt;PREDICATE&gt;    take lines <span style="color:#008000;font-weight:bold">while</span> PREDICATE is satisfied.
+                               we can use the variable PLINE and PLINECOUNT
+                               which are the current line and its line number in the PREDICATE.
+    -q, --no-header            suppress printing of headers when multiple files are being examined.
+
+    -h, --help                 print this message and exit.
+FILE
+    gives file name <span style="color:#008000;font-weight:bold">for</span> the input. <span style="color:#008000;font-weight:bold">if</span> this argument is single dash <span style="color:#666">(</span><span style="color:#ba2121">&#34;-&#34;</span><span style="color:#666">)</span> or absent,
+    it reads strings from STDIN.
+    <span style="color:#008000;font-weight:bold">if</span> more than a single file is specified, each file is separated by a header
+    consisting of the string <span style="color:#ba2121">&#34;==&gt; XXX &lt;==&#34;</span> where <span style="color:#ba2121">&#34;XXX&#34;</span> is the name of the file.
+</code></pre></div><h2 id="pskip"><code>pskip</code></h2>
+<h3 id="-description-2">🗣 Description</h3>
+<p>skip lines while satisfying the predicate.</p>
+<h3 id="-usage-2">🏃‍♂️ Usage</h3>
+<div class="highlight"><pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">skip <span style="color:#666">[</span>OPTIONS<span style="color:#666">]</span> <span style="color:#666">[</span>FILEs...<span style="color:#666">]</span>
+OPTIONS
+    -b, --bytes &lt;NUMBER&gt;       skip NUMBER bytes <span style="color:#666">(</span>same as head <span style="color:#008000">command</span><span style="color:#666">)</span>.
+    -n, --lines &lt;NUMBER&gt;       skip NUMBER lines <span style="color:#666">(</span>same as head <span style="color:#008000">command</span><span style="color:#666">)</span>.
+    -u, --until &lt;KEYWORD&gt;      skip lines <span style="color:#008000;font-weight:bold">until</span> KEYWORD is appeared.
+    -w, --while &lt;PREDICATE&gt;    skip lines <span style="color:#008000;font-weight:bold">while</span> PREDICATE is satisfied.
+                               we can use the variable PLINE and PLINECOUNT
+                               which are the current line and its line number in the PREDICATE.
+    -q, --no-header            suppress printing of headers when multiple files are being examined.
+
+    -h, --help                 print this message and exit.
+FILE
+    gives file name <span style="color:#008000;font-weight:bold">for</span> the input. <span style="color:#008000;font-weight:bold">if</span> this argument is single dash <span style="color:#666">(</span><span style="color:#ba2121">&#34;-&#34;</span><span style="color:#666">)</span> or absent,
+    it reads strings from STDIN.
+    <span style="color:#008000;font-weight:bold">if</span> more than a single file is specified, each file is separated by a header
+    consisting of the string <span style="color:#ba2121">&#34;==&gt; XXX &lt;==&#34;</span> where <span style="color:#ba2121">&#34;XXX&#34;</span> is the name of the file.
+</code></pre></div><h2 id="ptest"><code>ptest</code></h2>
+<h3 id="-description-3">🗣 Description</h3>
+<p>another implementation of <code>test</code> command for evaluating the predicate of <code>pskip</code> and <code>ptake</code>.</p>
+<h3 id="-usage-3">🏃‍♂️ Usage</h3>
+<div class="highlight"><pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ptest &lt;expression&gt;
+file operation
+    -b file            <span style="color:#008000">true</span> <span style="color:#008000;font-weight:bold">if</span> file exists and is a block special file.
+    -c file            <span style="color:#008000">true</span> <span style="color:#008000;font-weight:bold">if</span> file exists and is a character special file.
+    -d file            <span style="color:#008000">true</span> <span style="color:#008000;font-weight:bold">if</span> file exists and is a directory.
+    -e file            <span style="color:#008000">true</span> <span style="color:#008000;font-weight:bold">if</span> file exists <span style="color:#666">(</span>regardless of <span style="color:#008000">type</span><span style="color:#666">)</span>.
+    -f file            <span style="color:#008000">true</span> <span style="color:#008000;font-weight:bold">if</span> file exists and is a regular file.
+    -g file            <span style="color:#008000">true</span> <span style="color:#008000;font-weight:bold">if</span> file exists and its <span style="color:#008000">set</span> group ID flag is set.
+    -k file            <span style="color:#008000">true</span> <span style="color:#008000;font-weight:bold">if</span> file exists and its sticky bit is set.
+    -p file            <span style="color:#008000">true</span> <span style="color:#008000;font-weight:bold">if</span> file is a named pipe <span style="color:#666">(</span>FIFO<span style="color:#666">)</span>.
+    -r file            <span style="color:#008000">true</span> <span style="color:#008000;font-weight:bold">if</span> file exists and is readable.
+    -s file            <span style="color:#008000">true</span> <span style="color:#008000;font-weight:bold">if</span> file exists and has a size greater than zero.
+    -t file_descriptor <span style="color:#008000">true</span> <span style="color:#008000;font-weight:bold">if</span> the file whose file descriptor number is file_descriptor is open and is
+                       associated with a terminal.
+    -u file            <span style="color:#008000">true</span> <span style="color:#008000;font-weight:bold">if</span> file exists and its <span style="color:#008000">set</span> user id flag is set.
+    -w file            <span style="color:#008000">true</span> <span style="color:#008000;font-weight:bold">if</span> file exists and is writable.
+    -x file            <span style="color:#008000">true</span> <span style="color:#008000;font-weight:bold">if</span> file exists and is executable.  If file is directory,
+                       <span style="color:#008000">true</span> indicates that file can be searched.
+    -L file            <span style="color:#008000">true</span> <span style="color:#008000;font-weight:bold">if</span> file exists and its a symbolic link.
+    -O file            <span style="color:#008000">true</span> <span style="color:#008000;font-weight:bold">if</span> file exists and its owner matches the effective user id of this process <span style="color:#666">(</span>not support on Windows platform<span style="color:#666">)</span>.
+    -G file            <span style="color:#008000">true</span> <span style="color:#008000;font-weight:bold">if</span> file exists and its group matches the effective group id of this process <span style="color:#666">(</span>not support on Windows platform<span style="color:#666">)</span>.
+    -S file            <span style="color:#008000">true</span> <span style="color:#008000;font-weight:bold">if</span> file exists and its a socket.
+    file1 -nt file2    <span style="color:#008000">true</span> <span style="color:#008000;font-weight:bold">if</span> file1 exists and is newer than file2.
+    file1 -ot file2    <span style="color:#008000">true</span> <span style="color:#008000;font-weight:bold">if</span> file1 exists and is older than file2.
+    file1 -ef file2    <span style="color:#008000">true</span> <span style="color:#008000;font-weight:bold">if</span> file1 and file2 exist and refer to the same file.
+string operation
+    -n string          <span style="color:#008000">true</span> <span style="color:#008000;font-weight:bold">if</span> the length of string is nonzero.
+    -z string          <span style="color:#008000">true</span> <span style="color:#008000;font-weight:bold">if</span> the length of string is zero.
+    string             <span style="color:#008000">true</span> <span style="color:#008000;font-weight:bold">if</span> string is not the null string.
+    <span style="color:#19177c">s1</span> <span style="color:#666">=</span> s2            <span style="color:#008000">true</span> <span style="color:#008000;font-weight:bold">if</span> the strings s1 and s2 are identical.
+    <span style="color:#19177c">s1</span> <span style="color:#666">==</span> s2           <span style="color:#008000">true</span> <span style="color:#008000;font-weight:bold">if</span> the strings s1 and s2 are identical, same as <span style="color:#19177c">s1</span> <span style="color:#666">=</span> s2.
+    s1 !<span style="color:#666">=</span> s2           <span style="color:#008000">true</span> <span style="color:#008000;font-weight:bold">if</span> the strings s1 and s2 are not identical.
+    s1 -starts s2      <span style="color:#008000">true</span> <span style="color:#008000;font-weight:bold">if</span> string s1 starts with s2.
+    s1 -ends s2        <span style="color:#008000">true</span> <span style="color:#008000;font-weight:bold">if</span> string s1 ends with s2.
+    s1 -contains s2    <span style="color:#008000">true</span> <span style="color:#008000;font-weight:bold">if</span> string s1 contains s2.
+    s1 &lt; s2            <span style="color:#008000">true</span> <span style="color:#008000;font-weight:bold">if</span> string s1 comes before s2 based on the binary value of their characters.
+    s1 &lt;<span style="color:#666">=</span> s2           <span style="color:#008000">true</span> <span style="color:#008000;font-weight:bold">if</span> string s1 comes before or equals to s2 based on the binary value of their characters.
+    s1 &gt; s2            <span style="color:#008000">true</span> <span style="color:#008000;font-weight:bold">if</span> string s1 comes after s2 based on the binary value of their characters.
+    s1 &gt;<span style="color:#666">=</span> s2           <span style="color:#008000">true</span> <span style="color:#008000;font-weight:bold">if</span> string s1 comes after or equals to s2 based on the binary value of their characters.
+numeric operation
+    n1 -eq n2          <span style="color:#008000">true</span> <span style="color:#008000;font-weight:bold">if</span> the integers n1 and n2 are algebraically equal.
+    n1 -ne n2          <span style="color:#008000">true</span> <span style="color:#008000;font-weight:bold">if</span> the integers n1 and n2 are not algebraically equal.
+    n1 -gt n2          <span style="color:#008000">true</span> <span style="color:#008000;font-weight:bold">if</span> the integers n1 is algebraically greater than the integer n2.
+    n1 -ge n2          <span style="color:#008000">true</span> <span style="color:#008000;font-weight:bold">if</span> the integers n1 is algebraically greater than or equals to the integer n2.
+    n1 -lt n2          <span style="color:#008000">true</span> <span style="color:#008000;font-weight:bold">if</span> the integers n1 is algebraically less than the integer n2.
+    n1 -le n2          <span style="color:#008000">true</span> <span style="color:#008000;font-weight:bold">if</span> the integers n1 is algebraically less than or equals to the integer n2.
+combined operation
+    ! expression                <span style="color:#008000">true</span> <span style="color:#008000;font-weight:bold">if</span> the expression is false.
+    expression -a expression    <span style="color:#008000">true</span> <span style="color:#008000;font-weight:bold">if</span> both expression1 and expression2 are true.  The -a operator has higher precedence than the -o operator.
+    expression -o expression    <span style="color:#008000">true</span> <span style="color:#008000;font-weight:bold">if</span> either expression1 or expression2 are true.  The -o operator has lower precedence than the -a operator.
+    <span style="color:#666">(</span> expression <span style="color:#666">)</span>              <span style="color:#008000">true</span> <span style="color:#008000;font-weight:bold">if</span> expression is <span style="color:#008000">true</span>
+</code></pre></div>
 
     <footer class="site-footer">
   <span class="site-footer-credits">

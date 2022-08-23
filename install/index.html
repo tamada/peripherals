@@ -22,7 +22,7 @@
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js" integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ" crossorigin="anonymous"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
 
-  <title>Categories | peripherals</title>
+  <title>⚓ Install | peripherals</title>
 </head>
 
 <body>
@@ -68,10 +68,27 @@
 
   <section class="main-content">
     
-  <h1>Categories</h1>
-  <ul>
-    
-  </ul>
+  <h1>⚓ Install</h1>
+  <h3 id="-install-by-homebrew">🍺 Install by Homebrew</h3>
+<p>Simply type the following commands.</p>
+<div class="highlight"><pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ brew tap tamada/brew <span style="color:#408080;font-style:italic"># &lt;- only the first time</span>
+$ brew install peripherals
+</code></pre></div><h3 id="install-by-go">Install by Go</h3>
+<p>Simply type the following command.</p>
+<div class="highlight"><pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ go get github.com/tamada/peripherals
+</code></pre></div><h3 id="-install-your-self">💪 Install your self</h3>
+<ol>
+<li>Clone the project <code>tamada/peripherals</code> from <a href="https://github.com/tamada/peripherals">GitHub</a>.</li>
+<li>Go to the cloned <code>peripherals</code> directory.</li>
+<li>Compile the codes in the project.</li>
+<li>Move executables in to some directory for execution.</li>
+</ol>
+<p>To do above items, run the following commands.</p>
+<div class="highlight"><pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ git clone https://github.com/tamada/peripherals.git
+$ <span style="color:#008000">cd</span> peripherals
+$ make
+$ cp cmd/* /usr/local/bin
+</code></pre></div>
 
     <footer class="site-footer">
   <span class="site-footer-credits">
