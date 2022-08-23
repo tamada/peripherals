@@ -10,3 +10,9 @@ title: ":smile: About the Project"
 
 * Haruaki Tamada
 
+## Project
+
+### Project Icon
+
+![logo](/peripherals/images/logo.svg)
+

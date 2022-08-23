@@ -1,0 +1,7 @@
+{{- $label := .Get "label" -}}
+{{- $href := .Get "href" -}}
+{{- if $href -}}<a href="{{ $href }}">
+{{- end -}}
+<span class="label_button">{{ $label }}</span>
+{{- if $href -}}</a>
+{{- end -}}
