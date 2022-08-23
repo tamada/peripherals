@@ -1,0 +1,38 @@
+.avatar {
+    display: inline-block;
+    vertical-align: bottom;
+    margin-right: 15px;
+    height: 96px;
+    width: 96px;
+    border-radius: 15%;
+    background-color: white;
+    border: 0px solid black;
+}
+
+.avatar_caption {
+    display: inline;
+    width: 50%;
+}
+.project-name {
+    display: inline-block;
+}
+
+.label_button {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    padding: 3px 5px 3px 5px;
+    margin: 3px 0 3px 0;
+    border-radius: 5px 5px;
+    min-width: 75px;
+    font-size: x-small;
+    color: white;
+    border: 1px solid gray;
+    background-color: gray;
+}
+
+.label_button:hover {
+    background-color: white;
+    color: gray;
+    border: 1px solid gray;
+}

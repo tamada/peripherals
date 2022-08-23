@@ -2,55 +2,27 @@
 title: peripherals
 ---
 
-[![Build Status](https://github.com/tamada/uniq2/workflows/build/badge.svg?branch=master)](https://github.com/tamada/uniq2/actions?workflow=build)
-[![Coverage Status](https://coveralls.io/repos/github/tamada/uniq2/badge.svg?branch=master)](https://coveralls.io/github/tamada/uniq2?branch=master)
-[![codebeat badge](https://codebeat.co/badges/855266ea-99d4-4d80-ac43-81a1712f0f90)](https://codebeat.co/projects/github-com-tamada-uniq2-master)
-[![Go Report Card](https://goreportcard.com/badge/github.com/tamada/uniq2)](https://goreportcard.com/report/github.com/tamada/uniq2)
-[![License](https://img.shields.io/badge/License-WTFPL-blue.svg)](https://github.com/tamada/uniq2/blob/master/LICENSE)
-[![Version](https://img.shields.io/badge/Version-1.1.1-yellowgreen.svg)](https://github.com/tamada/uniq2/releases/tag/v1.1.1)
+[![build](https://github.com/tamada/peripherals/actions/workflows/build.yaml/badge.svg)](https://github.com/tamada/peripherals/actions/workflows/build.yaml)
+[![Coverage Status](https://coveralls.io/repos/github/tamada/peripherals/badge.svg?branch=main)](https://coveralls.io/github/tamada/peripherals?branch=main)
+[![codebeat badge](https://codebeat.co/badges/57405211-d149-4be5-9f9b-bfe72144b058)](https://codebeat.co/projects/github-com-tamada-peripherals-main)
 
-## Description
+[![License](https://img.shields.io/badge/License-MIT-green)](https://github.com/tamada/peripherals/blob/main/LICENSE)
+[![Version](https://img.shields.io/badge/Version-v0.9.5-green)](https://github.com/tamada/btmeister/releases/tag/v0.9.5)
 
-Delete duplicated lines.
+[![Homebrew](https://img.shields.io/badge/Homebrew-tamada/brew/peripherals-yellow?logo=homebrew)](https://github.com/tamada/btmeister/releases/tag/v${VERSION})
 
-GNU core utilities have `uniq` command for deleting duplicate lines.
-However, `uniq` command deletes only continuous duplicate lines.
-When deleting not continuous duplicate lines, we use `sort` command together, in that case, the order of the list was not kept.
+## :speaking_head: Description
 
-We want to delete not continuous duplicated lines with remaining the order.
+Peripheral utility commands for the shell by contrasting [GNU coreutils](https://www.gnu.org/software/coreutils/).
+This product includes the following commands.
 
-### Install by Homebrew
+* [`puniq`](usage#puniq)
+    * deletes the duplicated lines.
+* [`ptake`](usage#ptake)
+    * print lines while satisfying the predicate.
+* [`pskip`](usage#pskip)
+    * skip lines while satisfying the predicate.
+* [`ptest`](usage#ptest)
+    * another implementation of `test` command.
 
-Simply type the following commands.
 
-```bash
-$ brew tap tamada/brew # <- only the first time
-$ brew install uniq2
-```
-
-### Install by Go
-
-Simply type the following command.
-
-```sh
-$ go get github.com/tamada/uniq2
-```
-
-## Usage
-
-```
-uniq2 [OPTIONS] [INPUT [OUTPUT]]
-OPTIONS
-    -a, --adjacent        delete only adjacent duplicated lines.
-    -d, --delete-lines    only prints deleted lines.
-    -i, --ignore-case     case sensitive.
-    -h, --help            print this message.
-
-INPUT                     gives file name of input.  If argument is single dash ('-')
-                          or absent, the program read strings from stdin.
-OUTPUT                    represents the destination.
-```
-
-## License
-
-[WTFPL](https://github.com/tamada/uniq2/blob/master/LICENSE)

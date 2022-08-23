@@ -288,5 +288,8 @@ func (e *Expression) Term() (bool, error) {
 		return c != "", nil
 	}
 	item2, ok := e.next()
+	if !ok {
+		return false, fmt.Errorf("%s: parse error", e.Original)
+	}
 	return e.compare(c, item2, opts)
 }

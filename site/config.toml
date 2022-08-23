@@ -11,7 +11,8 @@ pygmentsStyle = "pygments"
 
 [params]
     project_name = "peripherals"
-    project_tagline = "Peripherals utility commands for the shell"
+    project_tagline = "Peripheral Utility Commands for the Shell Environment"
+    project_logo = "images/logo.svg"
     dateFormat = "2006-01-02"
 
     footer = "[![GitHub](https://img.shields.io/badge/GitHub-tamada/peripherals-blueviolet.svg?logo=github)](https://github.com/tamada/peripherals) Made with [Hugo](https://gohugo.io/). Theme by [Cayman](https://github.com/zwbetz-gh/cayman-hugo-theme). Deployed to [GitHub Pages](https://pages.github.com/)."
