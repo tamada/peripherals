@@ -24,5 +24,6 @@ This product includes the following commands.
     * skip lines while satisfying the predicate.
 * [`ptest`](usage#ptest)
     * another implementation of `test` command.
-
+* [`snip`](usage#snip)
+    * synthesis of `head` and `tail` command.
 

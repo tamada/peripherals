@@ -21,6 +21,8 @@ build: setup
 	@$(call _buildSubcommand,ptake)
 	@$(call _buildSubcommand,ptest)
 	@$(call _buildSubcommand,puniq)
+	@$(call _buildSubcommand,snip)
+
 
 lint: setup format
 	$(GO) vet $$(go list ./...)
@@ -43,6 +45,7 @@ define _createDist
 	GOOS=$(1) GOARCH=$(2) go build -tags $(1) -o dist/$(1)-$(2)/$(DIST)/bin/ptake$(3) cmd/ptake/*.go
 	GOOS=$(1) GOARCH=$(2) go build -tags $(1) -o dist/$(1)-$(2)/$(DIST)/bin/ptest$(3) cmd/ptest/*.go
 	GOOS=$(1) GOARCH=$(2) go build -tags $(1) -o dist/$(1)-$(2)/$(DIST)/bin/puniq$(3) cmd/puniq/*.go
+	GOOS=$(1) GOARCH=$(2) go build -tags $(1) -o dist/$(1)-$(2)/$(DIST)/bin/snip$(3) cmd/snip/*.go
 	tar cfz dist/$(DIST)-$(1)-$(2).tar.gz -C dist/$(1)-$(2) $(DIST)
 	echo "done"
 endef

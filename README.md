@@ -10,6 +10,7 @@
 
 [![Homebrew](https://img.shields.io/badge/Homebrew-tamada/brew/peripherals-yellow?logo=homebrew)](https://github.com/tamada/btmeister/releases/tag/v0.9.6)
 
+
 peripheral utility commands for the shell by contrasting [GNU coreutils](https://www.gnu.org/software/coreutils/).
 
 ## How to install
@@ -18,7 +19,7 @@ This project supports Homebrew.
 
 
 ```sh
-brew tap tamada/brew
+brew tap tamada/tap
 brew install peripherals
 ```
 
@@ -28,8 +29,11 @@ brew install peripherals
 * [`ptake`](#ptake)
 * [`pskip`](#pskip)
 * [`ptest`](#ptest)
+* [`snip`](#snip)
 
 ### `puniq`
+
+This command is similar to `uniq` command, however, `puniq` removes not adjacent duplicated lines.
 
 ```sh
 puniq [OPTIONS] [INPUT [OUTPUT]]
@@ -45,6 +49,9 @@ OUTPUT      represents the destination.
 ```
 
 ### `ptake`
+
+`ptake` command is similar to `head` command.
+The additional feature is that `ptake` can take lines until the specified keyword is appeared.
 
 ```sh
 ptake [OPTIONS] [FILEs...]
@@ -67,6 +74,9 @@ FILE
 
 ### `pskip`
 
+`pskip` command skips the first specified line/bytes.
+Of course, `pskip` command can also accept the keyword for skipping lines until appearing it.
+
 ```shell
 skip [OPTIONS] [FILEs...]
 OPTIONS
@@ -87,6 +97,10 @@ FILE
 ```
 
 ### `ptest`
+
+`ptest` command is similar to `test` command.
+`ptake` and `pskip` commands use this command for `while` option.
+
 
 ```shell
 ptest <expression>
@@ -142,6 +156,34 @@ combined operation
     ( expression )              true if expression is true
 ```
 
+### `snip`
+
+`snip` command is synthesis of `head` and `tail` command.
+
+
+```shell
+snip [OPTIONS] [FILEs...]
+OPTIONS
+  -H, --head int       print first HEAD lines (same as head command). (default -1)
+  -T, --tail int       print last TAIL lines (same as tail command). (default -1)
+  -N, --number int     print first and last lines (default is 5). (default 5)
+  -n, --line-number    print line number with output lines.
+  -s, --no-snip-sign   suppress printing of snip sign and the number of snipped lines.
+  -q, --no-header      suppress printing of headers when multiple files are being examined.
+  -h, --help           print this message and exit
+  -v, --version        print the version information and exit
+
+FILE
+  gives file name for the input. if this argument is single dash ('-') or absent,
+  it reads strings from STDIN.
+  if more than a single file is specified, each file is separated by a header
+  consisting of the string '==> XXX <==' where 'XXX' is the name of the file.
+```
+
 ## License
 
 [![License](https://img.shields.io/badge/License-MIT-green)](https://github.com/tamada/peripherals/blob/main/LICENSE)
+
+## Logo
+
+![Logo](https://raw.githubusercontent.com/tamada/peripherals/main/site/static/images/logo.svg)
