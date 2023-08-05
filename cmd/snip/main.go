@@ -19,11 +19,19 @@ type SnipOpts struct {
 	common.HelpOptions
 }
 
+func (opts *SnipOpts) isInvalid() bool {
+	return opts.Head < 0 && opts.Tail < 0 && opts.Number < 0
+}
+
+func (opts *SnipOpts) isOnlyNumberSet() bool {
+	return opts.Head < 0 && opts.Tail < 0 && opts.Number > 0
+}
+
 func (opts *SnipOpts) Validate() error {
-	if opts.Head < 0 && opts.Tail < 0 && opts.Number < 0 {
+	if opts.isInvalid() {
 		return errors.New("no lines specified. either options of -H, -T, -N must be specified")
 	}
-	if opts.Head < 0 && opts.Tail < 0 && opts.Number > 0 {
+	if opts.isOnlyNumberSet() {
 		opts.Head = opts.Number
 		opts.Tail = opts.Number
 	}
