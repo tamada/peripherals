@@ -82,8 +82,11 @@
 <a href="#-description-2"><span class="label_button">Description</span></a>
 <a href="#-usage-2"><span class="label_button">Usage</span></a></li>
 <li><a href="#ptest"><code>ptest</code></a>
-<a href="#-description-2"><span class="label_button">Description</span></a>
-<a href="#-usage-2"><span class="label_button">Usage</span></a></li>
+<a href="#-description-3"><span class="label_button">Description</span></a>
+<a href="#-usage-3"><span class="label_button">Usage</span></a></li>
+<li><a href="#snip"><code>snip</code></a>
+<a href="#-description-4"><span class="label_button">Description</span></a>
+<a href="#-usage-4"><span class="label_button">Usage</span></a></li>
 </ul>
 <h2 id="puniq"><code>puniq</code></h2>
 <h3 id="-description">🗣 Description</h3>
@@ -239,7 +242,28 @@ combined operation
     expression -a expression    <span style="color:#008000">true</span> <span style="color:#008000;font-weight:bold">if</span> both expression1 and expression2 are true.  The -a operator has higher precedence than the -o operator.
     expression -o expression    <span style="color:#008000">true</span> <span style="color:#008000;font-weight:bold">if</span> either expression1 or expression2 are true.  The -o operator has lower precedence than the -a operator.
     <span style="color:#666">(</span> expression <span style="color:#666">)</span>              <span style="color:#008000">true</span> <span style="color:#008000;font-weight:bold">if</span> expression is <span style="color:#008000">true</span>
-</code></pre></div>
+</code></pre></div><h2 id="snip"><code>snip</code></h2>
+<h3 id="-description-4">🗣 Description</h3>
+<p><code>snip</code> command is synthesis of <code>head</code> and <code>tail</code> command.</p>
+<h3 id="-usage-4">🏃‍♂️ Usage</h3>
+<div class="highlight"><pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">snip <span style="color:#666">[</span>OPTIONS<span style="color:#666">]</span> <span style="color:#666">[</span>FILEs...<span style="color:#666">]</span>
+OPTIONS
+  -H, --head int       print first HEAD lines <span style="color:#666">(</span>same as head <span style="color:#008000">command</span><span style="color:#666">)</span>. <span style="color:#666">(</span>default -1<span style="color:#666">)</span>
+  -T, --tail int       print last TAIL lines <span style="color:#666">(</span>same as tail <span style="color:#008000">command</span><span style="color:#666">)</span>. <span style="color:#666">(</span>default -1<span style="color:#666">)</span>
+  -N, --number int     print first and last lines <span style="color:#666">(</span>default is 5<span style="color:#666">)</span>. <span style="color:#666">(</span>default 5<span style="color:#666">)</span>
+  -n, --line-number    print line number with output lines.
+  -s, --no-snip-sign   suppress printing of snip sign and the number of snipped lines.
+  -q, --no-header      suppress printing of headers when multiple files are being examined.
+  -h, --help           print this message and <span style="color:#008000">exit</span>
+  -v, --version        print the version information and <span style="color:#008000">exit</span>
+
+FILE
+  gives file name <span style="color:#008000;font-weight:bold">for</span> the input. <span style="color:#008000;font-weight:bold">if</span> this argument is single dash <span style="color:#666">(</span><span style="color:#ba2121">&#39;-&#39;</span><span style="color:#666">)</span> or absent,
+  it reads strings from STDIN.
+  <span style="color:#008000;font-weight:bold">if</span> more than a single file is specified, each file is separated by a header
+  consisting of the string <span style="color:#ba2121">&#39;==&gt; XXX &lt;==&#39;</span> where <span style="color:#ba2121">&#39;XXX&#39;</span> is the name of the file.
+</code></pre></div><h3 id="-demo-1">🚴‍♂️ Demo</h3>
+
 
     <footer class="site-footer">
   <span class="site-footer-credits">

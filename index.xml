@@ -13,8 +13,8 @@
       
       <guid>https://tamada.github.io/peripherals/install/</guid>
       <description>🍺 Install by Homebrew Simply type the following commands.
-$ brew tap tamada/brew # &amp;lt;- only the first time $ brew install peripherals Install by Go Simply type the following command.
-$ go get github.com/tamada/peripherals 💪 Install your self  Clone the project tamada/peripherals from GitHub. Go to the cloned peripherals directory. Compile the codes in the project. Move executables in to some directory for execution.  To do above items, run the following commands.</description>
+$ brew tap tamada/tap # &amp;lt;- only the first time $ brew install peripherals Install by Go Simply type the following command.
+$ go get github.com/tamada/peripherals 💪 Install your self  Clone the project tamada/peripherals from GitHub.  git clone https://github.com/tamada/peripherals.git   Go to the cloned peripherals directory.  cd peripherals   Compile the codes in the project.  make   Move executables in to some directory for execution.</description>
     </item>
     
     <item>
@@ -23,7 +23,7 @@ $ go get github.com/tamada/peripherals 💪 Install your self  Clone the project
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://tamada.github.io/peripherals/usage/</guid>
-      <description>puniq Description Usage Demo Utility ptake Description Usage pskip Description Usage ptest Description Usage  puniq 🗣 Description Delete duplicated lines.
+      <description>puniq Description Usage Demo Utility ptake Description Usage pskip Description Usage ptest Description Usage snip Description Usage  puniq 🗣 Description Delete duplicated lines.
 GNU core utilities have uniq command for deleting duplicate lines. However, uniq command deletes only continuous duplicate lines. When deleting not continuous duplicate lines, we use sort command together, in that case, the order of the list was not kept.
 We want to delete not continuous duplicated lines with remaining the order.</description>
     </item>
