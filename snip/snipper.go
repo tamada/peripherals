@@ -33,7 +33,17 @@ func (s *Snipper) printLineNumber(out *bufio.Writer, count int) {
 	}
 }
 
+func (s *Snipper) isInvalid() error {
+	if s.Head < 0 || s.Tail < 0 {
+		return fmt.Errorf("head=%d, tail=%d: both of head and tail must be positive", s.Head, s.Tail)
+	}
+	return nil
+}
+
 func (s *Snipper) PerformEach(fileName string, writer io.Writer) error {
+	if err := s.isInvalid(); err != nil {
+		return err
+	}
 	f, err := openFile(fileName)
 	if err != nil {
 		return err
@@ -82,21 +92,30 @@ func (s *Snipper) printHead(out *bufio.Writer, line string, count int) {
 	}
 }
 
+func normalize(lines []string, tail int) []string {
+	for i := len(lines); i < tail; i++ {
+		// insert empty lines to index 0.
+		lines, lines[0] = append(lines[:1], lines[0:]...), ""
+	}
+	return lines
+}
+
 func (s *Snipper) printTail(out *bufio.Writer, lines []string, count int) {
-	count = count - s.Tail
-	if count >= s.Head {
-		for _, line := range lines {
-			s.printLineNumber(out, count)
-			out.WriteString(line)
-			out.WriteByte('\n')
-			count++
-		}
-	} else if count > 0 {
-		for i := 0; i < count; i++ {
-			s.printLineNumber(out, i)
-			out.WriteString(lines[len(lines)-i-1])
-			out.WriteByte('\n')
-		}
+	index := 0
+	lines = normalize(lines, s.Tail)
+	if s.Head > count { // no more printing line.
+		return
+	} else if s.Head+s.Tail < count {
+		count = count - s.Tail
+	} else if s.Head+s.Tail >= count { // print last TAIL lines.
+		index = len(lines) - count + s.Head
+		count = s.Head
+	}
+	for i := index; i < len(lines); i++ {
+		s.printLineNumber(out, count)
+		out.WriteString(lines[i])
+		out.WriteByte('\n')
+		count++
 	}
 	out.Flush()
 }

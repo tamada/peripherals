@@ -32,14 +32,16 @@ func Example_printHelp() {
 	// Output:
 	// snip [OPTIONS] [FILEs...]
 	// OPTIONS
-	//   -H, --head int       print first HEAD lines (same as head command). (default -1)
-	//   -T, --tail int       print last TAIL lines (same as tail command). (default -1)
-	//   -N, --number int     print first and last lines (default is 5). (default 5)
+	//   -H, --head int       print the specified leading lines (same as head command). (default 5)
+	//   -T, --tail int       print the specified tailing lines (same as tail command). (default 5)
+	//   -N, --number int     print the specified number of leading and tailing lines. If this option
+	//                        value is positive, it is treated as if this value were specified for -H
+	//                        and -T. (default -1)
 	//   -n, --line-number    print line number with output lines.
 	//   -s, --no-snip-sign   suppress printing of snip sign and the number of snipped lines.
 	//   -q, --no-header      suppress printing of headers when multiple files are being examined.
-	//   -h, --help           print this message and exit
-	//   -v, --version        print the version information and exit
+	//   -h, --help           print this message and exit.
+	//   -v, --version        print the version information and exit.
 	//
 	// FILE
 	//   gives file name for the input. if this argument is single dash ('-') or absent,

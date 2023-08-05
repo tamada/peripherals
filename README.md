@@ -6,9 +6,9 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/tamada/peripherals)](https://goreportcard.com/report/github.com/tamada/peripherals)
 
 [![License](https://img.shields.io/badge/License-MIT-green)](https://github.com/tamada/peripherals/blob/main/LICENSE)
-[![Version](https://img.shields.io/badge/Version-v1.0.0-green)](https://github.com/tamada/peripherals/releases/tag/v1.0.0)
+[![Version](https://img.shields.io/badge/Version-v1.0.1-green)](https://github.com/tamada/peripherals/releases/tag/v1.0.1)
 
-[![Homebrew](https://img.shields.io/badge/Homebrew-tamada/tap/peripherals-yellow?logo=homebrew)](https://github.com/tamada/peripherals/releases/tag/v1.0.0)
+[![Homebrew](https://img.shields.io/badge/Homebrew-tamada/tap/peripherals-yellow?logo=homebrew)](https://github.com/tamada/peripherals/releases/tag/v1.0.1)
 
 peripheral utility commands for the shell by contrasting [GNU coreutils](https://www.gnu.org/software/coreutils/).
 

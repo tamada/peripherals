@@ -10,6 +10,7 @@ import (
 	"github.com/tamada/peripherals/cmd/common"
 	"github.com/tamada/peripherals/errs"
 	"github.com/tamada/peripherals/snip"
+	"golang.org/x/term"
 )
 
 type SnipOpts struct {
@@ -24,14 +25,14 @@ func (opts *SnipOpts) isInvalid() bool {
 }
 
 func (opts *SnipOpts) isOnlyNumberSet() bool {
-	return opts.Head < 0 && opts.Tail < 0 && opts.Number > 0
+	return opts.Number < 0
 }
 
 func (opts *SnipOpts) Validate() error {
 	if opts.isInvalid() {
 		return errors.New("no lines specified. either options of -H, -T, -N must be specified")
 	}
-	if opts.isOnlyNumberSet() {
+	if opts.Number >= 0 {
 		opts.Head = opts.Number
 		opts.Tail = opts.Number
 	}
@@ -39,6 +40,10 @@ func (opts *SnipOpts) Validate() error {
 }
 
 func helpMessage(appName string, fs *flag.FlagSet) string {
+	cols, _, _ := term.GetSize(0)
+	if cols > 100 {
+		cols = 100
+	}
 	return fmt.Sprintf(`%s [OPTIONS] [FILEs...]
 OPTIONS
 %s
@@ -46,21 +51,21 @@ FILE
   gives file name for the input. if this argument is single dash ('-') or absent,
   it reads strings from STDIN.
   if more than a single file is specified, each file is separated by a header
-  consisting of the string '==> XXX <==' where 'XXX' is the name of the file.`, appName, fs.FlagUsages())
+  consisting of the string '==> XXX <==' where 'XXX' is the name of the file.`, appName, fs.FlagUsagesWrapped(100))
 }
 
 func buildFlags() (*flag.FlagSet, *SnipOpts) {
 	var opts = &SnipOpts{}
 	var flags = flag.NewFlagSet("pskip", flag.ContinueOnError)
 	flags.Usage = func() { fmt.Println(helpMessage("pskip", flags)) }
-	flags.IntVarP(&opts.Head, "head", "H", -1, "print first HEAD lines (same as head command).")
-	flags.IntVarP(&opts.Tail, "tail", "T", -1, "print last TAIL lines (same as tail command).")
-	flags.IntVarP(&opts.Number, "number", "N", 5, "print first and last lines (default is 5).")
+	flags.IntVarP(&opts.Head, "head", "H", 5, "print the specified leading lines (same as head command).")
+	flags.IntVarP(&opts.Tail, "tail", "T", 5, "print the specified tailing lines (same as tail command).")
+	flags.IntVarP(&opts.Number, "number", "N", -1, "print the specified number of leading and tailing lines. If this option value is positive, it is treated as if this value were specified for -H and -T.")
 	flags.BoolVarP(&opts.LineNumber, "line-number", "n", false, "print line number with output lines.")
 	flags.BoolVarP(&opts.SkipSnip, "no-snip-sign", "s", false, "suppress printing of snip sign and the number of snipped lines.")
 	flags.BoolVarP(&opts.NoHeader, "no-header", "q", false, "suppress printing of headers when multiple files are being examined.")
-	flags.BoolVarP(&opts.HelpFlag, "help", "h", false, "print this message and exit")
-	flags.BoolVarP(&opts.VersionFlag, "version", "v", false, "print the version information and exit")
+	flags.BoolVarP(&opts.HelpFlag, "help", "h", false, "print this message and exit.")
+	flags.BoolVarP(&opts.VersionFlag, "version", "v", false, "print the version information and exit.")
 	flags.SortFlags = false
 	return flags, opts
 }
