@@ -7,9 +7,9 @@ title: peripherals
 [![codebeat badge](https://codebeat.co/badges/57405211-d149-4be5-9f9b-bfe72144b058)](https://codebeat.co/projects/github-com-tamada-peripherals-main)
 
 [![License](https://img.shields.io/badge/License-MIT-green)](https://github.com/tamada/peripherals/blob/main/LICENSE)
-[![Version](https://img.shields.io/badge/Version-v0.9.5-green)](https://github.com/tamada/btmeister/releases/tag/v0.9.5)
+[![Version](https://img.shields.io/badge/Version-v1.0.0-green)](https://github.com/tamada/btmeister/releases/tag/v1.0.0)
 
-[![Homebrew](https://img.shields.io/badge/Homebrew-tamada/brew/peripherals-yellow?logo=homebrew)](https://github.com/tamada/btmeister/releases/tag/v${VERSION})
+[![Homebrew](https://img.shields.io/badge/Homebrew-tamada/tap/peripherals-yellow?logo=homebrew)](https://github.com/tamada/peripherals/releases/tag/v1.0.0)
 
 ## :speaking_head: Description
 
@@ -24,5 +24,6 @@ This product includes the following commands.
     * skip lines while satisfying the predicate.
 * [`ptest`](usage#ptest)
     * another implementation of `test` command.
-
+* [`snip`](usage#snip)
+    * synthesis of `head` and `tail` command.
 

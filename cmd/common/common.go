@@ -2,23 +2,40 @@ package common
 
 import (
 	"fmt"
+
 	"github.com/bits-and-blooms/bitset"
 	"github.com/tamada/peripherals/ptake"
 )
 
-type Options struct {
-	Lines       int
-	Bytes       int
-	Keyword     string
-	Predicate   string
-	NoHeader    bool
+type HelpOptions struct {
 	HelpFlag    bool
 	VersionFlag bool
-	TType       ptake.TakerType
+}
+
+func (opts *HelpOptions) IsHelp() bool {
+	return opts.HelpFlag || opts.VersionFlag
+}
+
+type HeaderOpts struct {
+	NoHeader bool
+}
+
+func (opts *HeaderOpts) IsPrintHeader(args []string) bool {
+	return !opts.NoHeader && len(args) > 1
+}
+
+type Options struct {
+	Lines     int
+	Bytes     int
+	Keyword   string
+	Predicate string
+	TType     ptake.TakerType
+	HeaderOpts
+	HelpOptions
 }
 
 func New() *Options {
-	return &Options{Lines: -1, Bytes: -1, Keyword: "", Predicate: "", NoHeader: false}
+	return &Options{Lines: -1, Bytes: -1, Keyword: "", Predicate: ""}
 }
 
 func (opts *Options) Int() int {
@@ -37,10 +54,6 @@ func (opts *Options) String() string {
 		return opts.Keyword
 	}
 	return ""
-}
-
-func (opts *Options) IsPrintHeader(args []string) bool {
-	return !opts.NoHeader && len(args) > 1
 }
 
 func (opts *Options) Validate() error {
@@ -71,10 +84,6 @@ func (opts *Options) Validate() error {
 		return fmt.Errorf("multiple criteria should not accept")
 	}
 	return nil
-}
-
-func (opts *Options) IsHelp() bool {
-	return opts.HelpFlag || opts.VersionFlag
 }
 
 func PrintError(err error, statusOnError int) int {
